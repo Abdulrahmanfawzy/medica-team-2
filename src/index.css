@@ -272,6 +272,14 @@
       xl:max-w-[1140px]
       2xl:max-w-[1320px];
   }
+  /* .bg-primary-grad {
+    @apply linear-gradient(
+    135deg,
+    #b9e4e4 0%,
+    #5bc0be 50%,
+    #0f766e 100%
+  );
+  } */
 }
 
 @layer utilities {
