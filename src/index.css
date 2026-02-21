@@ -121,9 +121,7 @@
   body {
     @apply bg-background text-foreground;
   }
-<<<<<<< HEAD
-}
-=======
+
   .container {
     @apply mx-auto 
       w-full 
@@ -209,4 +207,3 @@
     max-width: 91rem /* 1536px */;
   }
 }
->>>>>>> Eslam-Amer
