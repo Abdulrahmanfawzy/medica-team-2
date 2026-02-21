@@ -10,22 +10,24 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import loginSchema, { type LoginValues } from "@/lib/schemas/login.schema";
 import { Title } from "@/components/common/Title";
 import { Overlay } from "@/components/common/Overlay";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import type { forgetPasswordFormValues } from "@/lib/schemas/forgetPassword.schema";
+import forgetPasswordSchema from "@/lib/schemas/forgetPassword.schema";
 
 export default function ForgetPasswordPage() {
-  const form = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
+  const navigate = useNavigate();
+  const form = useForm<forgetPasswordFormValues>({
+    resolver: zodResolver(forgetPasswordSchema),
     defaultValues: {
-      email: "",
-      password: "",
+      emailOrPhone: "",
     },
   });
 
-  function onSubmit(data: LoginValues) {
-    console.log("Login Data:", data);
+  function onSubmit(data: forgetPasswordFormValues) {
+    console.log("data", data);
+    navigate("/verify-account");
   }
 
   return (
@@ -59,7 +61,7 @@ export default function ForgetPasswordPage() {
           >
             <FormField
               control={form.control}
-              name="email"
+              name="emailOrPhone"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="text-[#333] text-[16px] font-semibold">
@@ -80,14 +82,12 @@ export default function ForgetPasswordPage() {
             />
 
             {/* Continue Button */}
-            <Link to="/verify-account">
-              <Button
-                type="submit"
-                className="cursor-pointer w-full h-10 sm:h-11 bg-teal-700 hover:bg-teal-800 text-sm sm:text-base"
-              >
-                Continue
-              </Button>
-            </Link>
+            <Button
+              type="submit"
+              className="cursor-pointer w-full h-10 sm:h-11 bg-teal-700 hover:bg-teal-800 text-sm sm:text-base"
+            >
+              Continue
+            </Button>
           </form>
         </Form>
       </div>

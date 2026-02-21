@@ -16,9 +16,10 @@ import type { PhoneValues } from "@/lib/schemas/phone.schema";
 import phoneSchema from "@/lib/schemas/phone.schema";
 import { Overlay } from "@/components/common/Overlay";
 import { Title } from "@/components/common/Title";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export default function VerifyAccount() {
+  const navigate = useNavigate();
   const form = useForm<PhoneValues>({
     resolver: zodResolver(phoneSchema),
     defaultValues: {
@@ -28,6 +29,7 @@ export default function VerifyAccount() {
 
   function onSubmit(data: PhoneValues) {
     console.log("Valid phone:", data.phone);
+    navigate("/verify-otp");
   }
 
   return (
@@ -93,14 +95,12 @@ export default function VerifyAccount() {
               }}
             />
 
-            <Link to="/verify-otp">
-              <Button
-                type="submit"
-                className="cursor-pointer w-full h-14 text-base bg-teal-700 hover:bg-teal-800"
-              >
-                Continue
-              </Button>
-            </Link>
+            <Button
+              type="submit"
+              className="cursor-pointer w-full h-14 text-base bg-teal-700 hover:bg-teal-800"
+            >
+              Continue
+            </Button>
           </form>
         </Form>
       </div>
