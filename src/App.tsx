@@ -12,7 +12,14 @@ import Navbar from "./components/layout/Navbar";
 const App = () => {
   const { pathname } = useLocation();
   console.log("pathname", pathname);
-  const authRoutes = ["/login", "/sign-up", "/forget-password", "/verify-otp"];
+  const authRoutes = [
+    "/login",
+    "/sign-up",
+    "/forget-password",
+    "/verify-account",
+    "/verify-otp",
+    "success-password",
+  ];
 
   return (
     <div className="px-24">
