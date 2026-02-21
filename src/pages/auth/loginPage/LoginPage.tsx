@@ -112,7 +112,10 @@ export default function LoginPage() {
             {/* Remember + Forgot */}
             <div className="flex items-center justify-between text-xs sm:text-sm">
               <div className="flex items-center gap-2">
-                <Checkbox className="border-[#097178]" id="remember" />
+                <Checkbox
+                  className="cursor-pointer border-[#097178]"
+                  id="remember"
+                />
                 <label
                   htmlFor="remember"
                   className="cursor-pointer font-semibold text-[#333]"

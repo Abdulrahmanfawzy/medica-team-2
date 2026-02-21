@@ -162,7 +162,10 @@ export default function SignUpPage() {
             {/* Remember + Forgot */}
             <div className="flex items-center justify-between text-xs sm:text-sm">
               <div className="flex items-center gap-2">
-                <Checkbox className="border-[#097178]" id="terms" />
+                <Checkbox
+                  className="cursor-pointer border-[#097178]"
+                  id="terms"
+                />
                 <label
                   htmlFor="terms"
                   className="cursor-pointer font-semibold text-[#333]"
