@@ -137,7 +137,7 @@ export default function LoginPage() {
             <Button
               disabled={form.formState.isSubmitting}
               type="submit"
-              className="cursor-pointer w-full h-10 sm:h-11 bg-teal-700 hover:bg-teal-800 text-sm sm:text-base"
+              className="mt-6 cursor-pointer w-full h-10 sm:h-11 bg-teal-700 hover:bg-teal-800 text-sm sm:text-base"
             >
               {form.formState.isSubmitting ? "Logging in..." : "Login"}
             </Button>
