@@ -34,7 +34,7 @@ export default function VerifyAccount() {
 
   return (
     <div
-      className="relative min-h-screen w-full flex items-center justify-center px-4 sm:p-16 bg-cover bg-center"
+      className="relative -rotate-180 min-h-screen w-full flex items-center justify-center px-4 sm:p-16 bg-cover bg-center"
       style={{
         backgroundImage: `url("/src/assets/auth/landing.jpg")`,
       }}
@@ -42,7 +42,7 @@ export default function VerifyAccount() {
       {/* Overlay */}
       <Overlay />
       {/* Card */}
-      <div className=" w-full max-w-2xl bg-white/10 backdrop-opacity-10 rounded-3xl shadow-1xl p-12">
+      <div className="rotate-180 w-full max-w-2xl bg-white/10 backdrop-opacity-10 rounded-3xl shadow-1xl p-12">
         {/* Logo + Title */}
         <div className="flex flex-col items-center text-center">
           <img
