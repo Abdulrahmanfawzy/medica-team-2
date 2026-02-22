@@ -177,10 +177,11 @@ export default function SignUpPage() {
 
             {/* Login Button */}
             <Button
+              disabled={form.formState.isSubmitting}
               type="submit"
               className="cursor-pointer w-full h-10 sm:h-11 bg-teal-700 hover:bg-teal-800 text-sm sm:text-base"
             >
-              Register
+              {form.formState.isSubmitting ? "Rigistring..." : "Register"}
             </Button>
 
             {/* Divider */}
