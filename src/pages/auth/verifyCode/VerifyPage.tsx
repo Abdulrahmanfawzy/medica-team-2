@@ -99,7 +99,7 @@ export default function VerifyPage() {
               </Field>
             </FieldGroup>
           </CardContent>
-          <CardFooter className="flex flex-col mt-6">
+          <CardFooter className="flex flex-col mt-5">
             <Field className="flex flex-col" orientation="horizontal">
               <Button
                 type="submit"
