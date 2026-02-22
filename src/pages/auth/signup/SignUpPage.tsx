@@ -73,7 +73,7 @@ export default function SignUpPage() {
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <User className="absolute left-3 top-3.5 h-4 w-4 text-gray-500" />
+                      <User className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
                       <Input
                         placeholder="Name"
                         className="text-[#333] pl-9 h-10 sm:h-11 bg-white text-sm rounded-md"
@@ -97,7 +97,7 @@ export default function SignUpPage() {
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Mail className="absolute left-3 top-3.5 h-4 w-4 text-gray-500" />
+                      <Mail className="absolute left-3 top-3 h-4 w-4 text-gray-500" />
                       <Input
                         placeholder="Email"
                         className="pl-9 text-[#333] h-10 sm:h-11 bg-white text-sm rounded-md"
@@ -121,7 +121,7 @@ export default function SignUpPage() {
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-3.5 w-4 h-4 text-gray-500" />
+                      <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-500" />
                       <Input
                         type="password"
                         placeholder="Password"
@@ -145,7 +145,7 @@ export default function SignUpPage() {
                   </FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Lock className="absolute left-3 top-3.5 w-4 h-4 text-gray-500" />
+                      <Lock className="absolute left-3 top-3 w-4 h-4 text-gray-500" />
                       <Input
                         type="password"
                         placeholder="Confirm Password"
@@ -185,7 +185,7 @@ export default function SignUpPage() {
             </Button>
 
             {/* Divider */}
-            <div className="flex items-center mt-6 gap-3">
+            <div className="flex items-center mt-4 gap-3">
               <Separator className="flex-1 h-px bg-[#666]" />
               <span className="text-xs sm:text-sm text-gray-600">OR</span>
               <Separator className="flex-1 h-px bg-[#666]" />
