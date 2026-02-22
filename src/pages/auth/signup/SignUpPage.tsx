@@ -159,8 +159,8 @@ export default function SignUpPage() {
               )}
             />
 
-            {/* Remember + Forgot */}
-            <div className="flex items-center justify-between text-xs sm:text-sm">
+            {/* Terms */}
+            <div className="flex mt-8 items-center justify-between text-xs sm:text-sm">
               <div className="flex items-center gap-2">
                 <Checkbox
                   className="cursor-pointer border-[#097178]"
@@ -179,13 +179,13 @@ export default function SignUpPage() {
             <Button
               disabled={form.formState.isSubmitting}
               type="submit"
-              className="cursor-pointer w-full h-10 sm:h-11 bg-teal-700 hover:bg-teal-800 text-sm sm:text-base"
+              className="mt-6 cursor-pointer w-full h-10 sm:h-11 bg-teal-700 hover:bg-teal-800 text-sm sm:text-base"
             >
               {form.formState.isSubmitting ? "Rigistring..." : "Register"}
             </Button>
 
             {/* Divider */}
-            <div className="flex items-center mt-10 gap-3">
+            <div className="flex items-center mt-6 gap-3">
               <Separator className="flex-1 h-px bg-[#666]" />
               <span className="text-xs sm:text-sm text-gray-600">OR</span>
               <Separator className="flex-1 h-px bg-[#666]" />
