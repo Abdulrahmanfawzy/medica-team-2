@@ -1,13 +1,30 @@
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
 import { useBooking } from "@/lib/providers/BookingProvider";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { stepB } from "@/lib/schemas/booking.schema";
+import type z from "zod";
 
-export default function StepB({ register, errors, handleNext }: any) {
-  const { changeStep } = useBooking();
+export default function StepB() {
+  const { step, changeStep } = useBooking();
   const [selectedDate, setSelectedDate] = useState<Date | null>();
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const [selectedTime, setSelectedTime] = useState<string>();
   const [time, setTime] = useState<object>({});
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(stepB),
+  });
+
+  const onSubmit = (data: z.infer<typeof stepB>) => {
+    console.log(data.date);
+    changeStep(step + 1);
+  };
 
   const timeSlots = {
     Morning: ["09:30", "10:00", "10:30", "11:00", "11:30"],
@@ -125,7 +142,7 @@ export default function StepB({ register, errors, handleNext }: any) {
   };
 
   return (
-    <>
+    <form className="flex flex-col gap-8" onSubmit={handleSubmit(onSubmit)}>
       {/* Date & Time Selection */}
       <div className="flex gap-6">
         {/* Calendar */}
@@ -177,13 +194,18 @@ export default function StepB({ register, errors, handleNext }: any) {
 
               const isSelected = isDateSelected(item.date);
               const isAvailable = item.available;
+              const dateFormated = item.date?.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "2-digit",
+                day: "2-digit",
+              });
 
               return (
                 <label key={idx} className="block cursor-pointer">
                   <input
                     {...register("date")}
                     type="radio"
-                    value={item.date?.toISOString()}
+                    value={dateFormated}
                     checked={isSelected}
                     className="hidden"
                     disabled={!isAvailable}
@@ -294,13 +316,12 @@ export default function StepB({ register, errors, handleNext }: any) {
           Back
         </button>
         <button
-          type="button"
-          onClick={handleNext}
+          type="submit"
           className="cursor-pointer w-[188px] h-[56px] px-[16px] py-[10px] font-semibold text-[18px] bg-[#07595f] text-[#fcfcfc] rounded-[8px]"
         >
           Continue
         </button>
       </div>
-    </>
+    </form>
   );
 }

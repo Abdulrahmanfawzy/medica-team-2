@@ -1,48 +1,42 @@
 import { ChevronDown, Plus } from "lucide-react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import AddMember from "@/components/booking/AddMember";
+import { useBooking } from "@/lib/providers/BookingProvider";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { stepC } from "@/lib/schemas/booking.schema";
+import MySelf from "@/components/booking/MySelf";
+import Others from "@/components/booking/Others";
 
-export default function StepC({
-  register,
-  errors,
-  handleNext,
-  trigger,
-  changeStep,
-}: {
-  register: any;
-  errors: any;
-  handleNext: () => void;
-  trigger: any;
-  changeStep: (step: number) => void;
-}) {
+export default function StepC() {
+  const {
+    register,
+    formState: {},
+  } = useForm<z.infer<typeof stepC>>({
+    resolver: zodResolver(stepC),
+    defaultValues: {
+      for: "myself",
+      fullName: "",
+      phoneNumber: "",
+      emailAddress: "",
+      reasonForVisit: "",
+    },
+  });
   const [appointmentFor, setAppointmentFor] = useState<"myself" | "others">(
     "myself",
   );
+  const { step, changeStep } = useBooking();
   const [phase, setPhase] = useState(1);
   const [addMember, setAddMember] = useState(false);
-
-  const handleNextPhase = async () => {
-    if (appointmentFor === "others" && phase === 1) {
-      const isValid = await trigger([
-        "patientName",
-        "gender",
-        "dateOfBirth",
-        "reasonForVisit",
-      ]);
-      if (isValid) setPhase(2);
-    } else {
-      handleNext();
-    }
-  };
 
   const handleBack = () => {
     if (appointmentFor === "others" && phase === 2) {
       setPhase(1);
     } else {
-      changeStep(2);
+      changeStep(step - 1);
     }
   };
 
@@ -106,223 +100,11 @@ export default function StepC({
             </div>
           </div>
           {appointmentFor === "myself" ? (
-            <>
-              {/* Full Name */}
-              <div className="flex flex-col gap-2">
-                <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Full Name *
-                </Label>
-                <Input
-                  {...register("fullName")}
-                  type="text"
-                  placeholder="Enter your full name"
-                  className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.fullName ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                />
-                {errors.fullName && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.fullName.message}
-                  </p>
-                )}
-              </div>
+            //
 
-              {/* Phone Number */}
-              <div className="flex flex-col gap-2">
-                <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Phone Number *
-                </Label>
-                <Input
-                  {...register("phoneNumber")}
-                  type="tel"
-                  placeholder="Enter your Number"
-                  className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.phoneNumber ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                />
-                {errors.phoneNumber && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.phoneNumber.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Email Address */}
-              <div className="flex flex-col gap-2">
-                <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Email Address *
-                </Label>
-                <Input
-                  {...register("emailAddress")}
-                  type="email"
-                  placeholder="Enter your Email"
-                  className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.emailAddress ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                />
-                {errors.emailAddress && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.emailAddress.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Reason for Visit */}
-              <div className="flex flex-col gap-2">
-                <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Reason for Visit *
-                </Label>
-                <Textarea
-                  {...register("reasonForVisit")}
-                  placeholder="[Briefly describe your symptoms or reason for consultation]"
-                  className={`w-full h-[244px] px-4 py-2 bg-white rounded-lg border text-base resize-none ${errors.reasonForVisit ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                />
-                {errors.reasonForVisit && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.reasonForVisit.message}
-                  </p>
-                )}
-              </div>
-            </>
-          ) : phase === 1 ? (
-            <>
-              {/* Patient Information */}
-              <div className="flex flex-col gap-4">
-                <p className="font-['Poppins:Medium',sans-serif] text-lg text-[#0a0a0a] tracking-[0.4px] uppercase">
-                  Patient Information
-                </p>
-
-                {/* Patient Name */}
-                <div className="flex flex-col gap-2">
-                  <label className="font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase">
-                    Patient Name *
-                  </label>
-                  <input
-                    {...register("patientName")}
-                    type="text"
-                    placeholder="Enter patient full name"
-                    className={`w-full h-14 px-4 py-2 bg-white rounded-lg border font-['Poppins:Medium',sans-serif] text-base ${errors.patientName ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                  />
-                  {errors.patientName && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors.patientName.message}
-                    </p>
-                  )}
-                </div>
-              </div>
-
-              {/* Gender Dropdown */}
-              <div className="flex flex-col gap-2">
-                <label className="font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Gender *
-                </label>
-                <div className="relative">
-                  <select
-                    {...register("gender")}
-                    className={`w-full h-14 px-4 py-2 bg-[#fcfcfc] rounded-lg border font-['Poppins:Medium',sans-serif] text-base appearance-none ${errors.gender ? "border-red-500 text-red-500" : "border-[#4d4d4d] text-[#4d4d4d]"}`}
-                  >
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
-                  </select>
-                  <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                    <ChevronDown />
-                  </div>
-                </div>
-                {errors.gender && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.gender.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Date of Birth */}
-              <div className="flex flex-col gap-2">
-                <label className="font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Date of Birth *
-                </label>
-                <input
-                  {...register("dateOfBirth")}
-                  type="text"
-                  placeholder="DD\MM\YYYY"
-                  className={`w-full h-14 px-4 py-2 bg-white rounded-lg border font-['Poppins:Medium',sans-serif] text-base ${errors.dateOfBirth ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                />
-                {errors.dateOfBirth && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.dateOfBirth.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Reason for Visit */}
-              <div className="flex flex-col gap-2">
-                <label className="font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Reason for Visit *
-                </label>
-                <textarea
-                  {...register("reasonForVisit")}
-                  placeholder="[Briefly describe your symptoms or reason for consultation]"
-                  className={`w-full h-[244px] px-4 py-2 bg-white rounded-lg border font-['Poppins:Medium',sans-serif] text-base resize-none ${errors.reasonForVisit ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                />
-                {errors.reasonForVisit && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.reasonForVisit.message}
-                  </p>
-                )}
-              </div>
-            </>
+            <MySelf />
           ) : (
-            <>
-              <p className="font-['Poppins:Medium',sans-serif] text-lg text-[#0a0a0a] tracking-[0.4px] uppercase">
-                Your Contact Information
-              </p>
-              {/* Full Name */}
-              <div className="flex flex-col gap-2">
-                <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Your Full Name *
-                </Label>
-                <Input
-                  {...register("fullName")}
-                  type="text"
-                  placeholder="Enter your full name"
-                  className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.fullName ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                />
-                {errors.fullName && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.fullName.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Phone Number */}
-              <div className="flex flex-col gap-2">
-                <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Phone Number *
-                </Label>
-                <Input
-                  {...register("phoneNumber")}
-                  type="tel"
-                  placeholder="Enter your Number"
-                  className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.phoneNumber ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                />
-                {errors.phoneNumber && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.phoneNumber.message}
-                  </p>
-                )}
-              </div>
-
-              {/* Email Address */}
-              <div className="flex flex-col gap-2">
-                <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
-                  Email Address *
-                </Label>
-                <Input
-                  {...register("emailAddress")}
-                  type="email"
-                  placeholder="Enter your Email"
-                  className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.emailAddress ? "border-red-500" : "border-[#b3b3b3] text-[#333]"}`}
-                />
-                {errors.emailAddress && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors.emailAddress.message}
-                  </p>
-                )}
-              </div>
-            </>
+            <Others setPhase={setPhase} phase={phase} />
           )}
 
           {/* Add Family Member Section */}
@@ -349,32 +131,55 @@ export default function StepC({
       </div>
 
       {/* Action Buttons */}
-      <div className="flex justify-between h-14 gap-4">
-        <button
-          type="button"
-          onClick={handleBack}
-          className="w-[188px] rounded-lg border border-[#097178] text-[#097178] text-lg px-4 py-2.5 cursor-pointer"
-        >
-          Back
-        </button>
 
-        {phase === 1 ? (
+      {appointmentFor == "myself" && (
+        <div className="flex justify-between h-14 gap-4">
           <button
             type="button"
-            onClick={handleNextPhase}
-            className="w-[188px] rounded-lg bg-[#097178] text-[#fcfcfc] text-lg px-4 py-2.5 cursor-pointer"
+            onClick={handleBack}
+            className="w-[188px] rounded-lg border border-[#097178] text-[#097178] text-lg px-4 py-2.5 cursor-pointer"
           >
-            Next
+            Back
           </button>
-        ) : (
+
           <button
             type="submit"
+            form="myself"
             className="w-[188px] rounded-lg bg-[#097178] text-[#fcfcfc] text-lg px-4 py-2.5 cursor-pointer"
           >
             Continue
           </button>
-        )}
-      </div>
+        </div>
+      )}
+      {appointmentFor == "others" && (
+        <div className="flex justify-between h-14 gap-4">
+          <button
+            type="button"
+            onClick={handleBack}
+            className="w-[188px] rounded-lg border border-[#097178] text-[#097178] text-lg px-4 py-2.5 cursor-pointer"
+          >
+            Back
+          </button>
+
+          {phase == 1 ? (
+            <button
+              type="submit"
+              form="phase1"
+              className="w-[188px] rounded-lg bg-[#097178] text-[#fcfcfc] text-lg px-4 py-2.5 cursor-pointer"
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              type="submit"
+              form="phase2"
+              className="w-[188px] rounded-lg bg-[#097178] text-[#fcfcfc] text-lg px-4 py-2.5 cursor-pointer"
+            >
+              Continue
+            </button>
+          )}
+        </div>
+      )}
     </div>
   );
 }
