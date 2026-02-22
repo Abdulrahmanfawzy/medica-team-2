@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { Home, Heart, Search, SlidersHorizontal, User } from "lucide-react";
-import logo from "@/assets/images/logo.png";
+import logo from "@/assets/auth/logo.png";
 
 const Navbar = () => {
   const mobileLinkStyle =

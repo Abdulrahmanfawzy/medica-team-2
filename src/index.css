@@ -121,4 +121,89 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .container {
+    @apply mx-auto 
+      w-full 
+      px-4
+      sm:max-w-[540px]
+      md:max-w-[720px]
+      lg:max-w-[960px]
+      xl:max-w-[1140px]
+      2xl:max-w-[1320px];
+  }
+  /* .bg-primary-grad {
+    @apply linear-gradient(
+    135deg,
+    #b9e4e4 0%,
+    #5bc0be 50%,
+    #0f766e 100%
+  );
+  } */
+}
+
+@layer utilities {
+  .text-18 {
+    font-size: var(--text-18);
+  }
+  .text-20 {
+    font-size: var(--text-20);
+  }
+  .text-21 {
+    font-size: var(--text-21);
+  }
+  .text-22 {
+    font-size: var(--text-22);
+  }
+  .text-25 {
+    font-size: var(--text-25);
+  }
+  .text-28 {
+    font-size: var(--text-28);
+  }
+  .text-40 {
+    font-size: var(--text-40);
+  }
+  .text-51 {
+    font-size: var(--text-51);
+  }
+
+  /* Hide scrollbar but keep scroll functionality */
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@utility container {
+  @apply mx-auto;
+  width: 95%;
+  @media (width >= 40rem /* 640px */) {
+    max-width: 35rem /* 640px */;
+  }
+  @media (width >= 48rem /* 768px */) {
+    max-width: 43rem /* 768px */;
+  }
+  @media (width >= 64rem /* 1024px */) {
+    max-width: 59rem /* 1024px */;
+  }
+  @media (width >= 80rem /* 1280px */) {
+    max-width: 75rem /* 1280px */;
+  }
+  @media (width >= 96rem /* 1536px */) {
+    max-width: 91rem /* 1536px */;
+  }
 }
