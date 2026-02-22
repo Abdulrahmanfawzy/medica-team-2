@@ -29,7 +29,7 @@ export default function VerifyPage() {
 
   return (
     <div
-      className="relative min-h-screen w-full flex items-center justify-center px-4 sm:p-16  bg-cover bg-center"
+      className="relative min-h-screen w-full flex items-center justify-center sm:p-16 bg-cover bg-center"
       style={{
         backgroundImage: `url("/src/assets/auth/landing.jpg")`,
       }}
