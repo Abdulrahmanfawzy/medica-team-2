@@ -134,14 +134,13 @@ export default function LoginPage() {
             </div>
 
             {/* Login Button */}
-            <Link to="/">
-              <Button
-                type="submit"
-                className="cursor-pointer w-full h-10 sm:h-11 bg-teal-700 hover:bg-teal-800 text-sm sm:text-base"
-              >
-                Login
-              </Button>
-            </Link>
+            <Button
+              disabled={form.formState.isSubmitting}
+              type="submit"
+              className="cursor-pointer w-full h-10 sm:h-11 bg-teal-700 hover:bg-teal-800 text-sm sm:text-base"
+            >
+              {form.formState.isSubmitting ? "Logging in..." : "Login"}
+            </Button>
 
             {/* Divider */}
             <div className="flex items-center mt-10 gap-3">
