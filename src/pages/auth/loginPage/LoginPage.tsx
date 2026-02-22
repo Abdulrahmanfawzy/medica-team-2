@@ -90,7 +90,7 @@ export default function LoginPage() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#333] mt-8 text-[16px] font-semibold">
+                  <FormLabel className="text-[#333] mt-6 text-[16px] font-semibold">
                     Password
                   </FormLabel>
                   <FormControl>
@@ -110,7 +110,7 @@ export default function LoginPage() {
             />
 
             {/* Remember + Forgot */}
-            <div className="flex items-center mt-6 justify-between text-xs sm:text-sm">
+            <div className="flex items-center mt-8 justify-between text-xs sm:text-sm">
               <div className="flex items-center gap-2">
                 <Checkbox
                   className="cursor-pointer border-[#097178]"

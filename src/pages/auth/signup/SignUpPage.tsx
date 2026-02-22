@@ -160,7 +160,7 @@ export default function SignUpPage() {
             />
 
             {/* Terms */}
-            <div className="flex mt-6 items-center justify-between text-xs sm:text-sm">
+            <div className="flex mt-8 items-center justify-between text-xs sm:text-sm">
               <div className="flex items-center gap-2">
                 <Checkbox
                   className="cursor-pointer border-[#097178]"
