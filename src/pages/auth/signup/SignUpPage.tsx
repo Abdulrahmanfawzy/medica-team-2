@@ -35,7 +35,7 @@ export default function SignUpPage() {
 
   return (
     <div
-      className="relative min-h-screen w-full flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-cover bg-center"
+      className="relative min-h-screen w-full flex items-center justify-center px-4 sm:p-16 bg-cover bg-center"
       style={{
         backgroundImage: `url("/src/assets/auth/landing.jpg")`,
       }}
@@ -185,7 +185,7 @@ export default function SignUpPage() {
             </Button>
 
             {/* Divider */}
-            <div className="flex items-center mt-6 gap-3">
+            <div className="flex items-center mt-3 gap-3">
               <Separator className="flex-1 h-px bg-[#666]" />
               <span className="text-xs sm:text-sm text-gray-600">OR</span>
               <Separator className="flex-1 h-px bg-[#666]" />
