@@ -29,7 +29,7 @@ export default function VerifyPage() {
 
   return (
     <div
-      className="relative min-h-screen w-full flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-cover bg-center"
+      className="relative min-h-screen w-full flex items-center justify-center px-4 sm:p-16  bg-cover bg-center"
       style={{
         backgroundImage: `url("/src/assets/auth/landing.jpg")`,
       }}
@@ -76,7 +76,7 @@ export default function VerifyPage() {
                             <InputOTPSlot
                               key={i}
                               index={i}
-                              className="w-10 h-10 sm:w-16 sm:h-16 text-center text-lg sm:text-xl font-semibold rounded-[10px]! border-2 border-[#097178] bg-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 transition"
+                              className="w-10 h-10 sm:w-14 sm:h-14 text-center text-lg sm:text-xl font-semibold rounded-[10px]! border-2 border-[#097178] bg-transparent focus:outline-none focus:ring-2 focus:ring-teal-600 transition"
                             />
                           ))}
                         </InputOTPGroup>
