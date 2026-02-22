@@ -175,7 +175,7 @@ export default function SignUpPage() {
               </div>
             </div>
 
-            {/* Login Button */}
+            {/* Register Btn */}
             <Button
               disabled={form.formState.isSubmitting}
               type="submit"
