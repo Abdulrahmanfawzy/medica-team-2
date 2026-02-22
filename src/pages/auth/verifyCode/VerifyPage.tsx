@@ -29,7 +29,7 @@ export default function VerifyPage() {
 
   return (
     <div
-      className="relative -rotate-180 min-h-screen w-full flex items-center justify-center px-4 sm:p-16 bg-cover bg-center"
+      className="relative -rotate-180 min-h-screen w-full flex items-center justify-center sm:p-16 bg-cover bg-center"
       style={{
         backgroundImage: `url("/src/assets/auth/landing.jpg")`,
       }}
@@ -87,7 +87,7 @@ export default function VerifyPage() {
                           errors={[fieldState.error]}
                         />
                       )}
-                      <p className="text-center text-[#333] mt-5">
+                      <p className="text-center text-[14px] text-[#333] mt-5">
                         Didn’t receive OTP?{" "}
                         <span className=" cursor-pointer font-semibold text-[#097178]">
                           Resend Code
