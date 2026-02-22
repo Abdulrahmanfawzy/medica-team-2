@@ -90,7 +90,7 @@ export default function LoginPage() {
               name="password"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-[#333] text-[16px] font-semibold">
+                  <FormLabel className="text-[#333] mt-8 text-[16px] font-semibold">
                     Password
                   </FormLabel>
                   <FormControl>
@@ -110,7 +110,7 @@ export default function LoginPage() {
             />
 
             {/* Remember + Forgot */}
-            <div className="flex items-center justify-between text-xs sm:text-sm">
+            <div className="flex items-center mt-6 justify-between text-xs sm:text-sm">
               <div className="flex items-center gap-2">
                 <Checkbox
                   className="cursor-pointer border-[#097178]"
@@ -143,7 +143,7 @@ export default function LoginPage() {
             </Button>
 
             {/* Divider */}
-            <div className="flex items-center mt-10 gap-3">
+            <div className="flex items-center mt-6 gap-3">
               <Separator className="flex-1 h-px bg-[#666]" />
               <span className="text-xs sm:text-sm text-gray-600">OR</span>
               <Separator className="flex-1 h-px bg-[#666]" />

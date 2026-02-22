@@ -159,8 +159,8 @@ export default function SignUpPage() {
               )}
             />
 
-            {/* Remember + Forgot */}
-            <div className="flex items-center justify-between text-xs sm:text-sm">
+            {/* Terms */}
+            <div className="flex mt-6 items-center justify-between text-xs sm:text-sm">
               <div className="flex items-center gap-2">
                 <Checkbox
                   className="cursor-pointer border-[#097178]"
@@ -175,7 +175,7 @@ export default function SignUpPage() {
               </div>
             </div>
 
-            {/* Login Button */}
+            {/* Register Btn */}
             <Button
               disabled={form.formState.isSubmitting}
               type="submit"
@@ -185,7 +185,7 @@ export default function SignUpPage() {
             </Button>
 
             {/* Divider */}
-            <div className="flex items-center mt-10 gap-3">
+            <div className="flex items-center mt-6 gap-3">
               <Separator className="flex-1 h-px bg-[#666]" />
               <span className="text-xs sm:text-sm text-gray-600">OR</span>
               <Separator className="flex-1 h-px bg-[#666]" />
