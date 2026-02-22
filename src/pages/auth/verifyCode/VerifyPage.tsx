@@ -87,7 +87,7 @@ export default function VerifyPage() {
                           errors={[fieldState.error]}
                         />
                       )}
-                      <p className="text-center text-[#333] mt-5">
+                      <p className="text-center text-[14px] text-[#333] mt-5">
                         Didn’t receive OTP?{" "}
                         <span className=" cursor-pointer font-semibold text-[#097178]">
                           Resend Code
