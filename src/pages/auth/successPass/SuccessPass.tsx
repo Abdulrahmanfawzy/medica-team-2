@@ -5,14 +5,14 @@ import { Overlay } from "@/components/common/Overlay";
 export default function SuccessPage() {
   return (
     <div
-      className="relative min-h-screen w-full flex items-center justify-center px-4 sm:px-6 lg:px-8 bg-cover bg-center"
+      className="relative -rotate-180 min-h-screen w-full flex items-center justify-center px-4 sm:p-16 bg-cover bg-center"
       style={{
         backgroundImage: `url("/src/assets/auth/landing.jpg")`,
       }}
     >
       {/* Overlay */}
       <Overlay />
-      <Card className="w-full max-w-md bg-[#d9d9d9]/80 backdrop-opacity-10 border-none rounded-2xl shadow-1xl">
+      <Card className="rotate-180 w-full max-w-md bg-[#d9d9d9]/80 backdrop-opacity-10 border-none rounded-2xl shadow-1xl">
         <CardContent className="flex flex-col items-center text-center space-y-6 p-6 sm:p-8">
           <div className="flex items-center justify-center w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-green-600">
             <Check
