@@ -49,7 +49,7 @@ export default function SignUpPage() {
           <img
             src="/src/assets/auth/logo.png"
             alt="Logo"
-            className="w-12 h-12 sm:w-25 sm:h-25 object-contain"
+            className="w-12 h-12 sm:w-25 sm:h-25 object-contain mb-6"
           />
           <Title
             title="Registration"
