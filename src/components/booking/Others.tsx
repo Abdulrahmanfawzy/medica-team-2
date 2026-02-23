@@ -1,10 +1,11 @@
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { ChevronDown } from "lucide-react";
-import { stepC } from "@/lib/schemas/booking.schema";
+import { Textarea } from "@/components/ui/textarea";
+import { othersPhase1, othersPhase2 } from "@/lib/schemas/booking.schema";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { ChevronDown } from "lucide-react";
 
 export default function Others({
   setPhase,
@@ -21,24 +22,22 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<z.infer<typeof stepC>>({
-    resolver: zodResolver(stepC),
+  } = useForm<z.infer<typeof othersPhase1>>({
+    resolver: zodResolver(othersPhase1),
     defaultValues: {
-      for: "others",
-      details: {
-        phase: 1,
-        fullName: "",
-        gender: "male",
-        dateOfBirth: "",
-        reasonForVisit: "",
-      },
+      fullName: "",
+      gender: "male",
+      dateOfBirth: "",
+      reasonForVisit: "",
     },
   });
 
-  const onSubmit = (data: z.infer<typeof stepC>) => {
+  const onSubmit = (data: z.infer<typeof othersPhase1>) => {
     console.log(data);
     setPhase(2);
   };
+
+  console.log(errors);
 
   return (
     <form
@@ -54,28 +53,39 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
 
         {/* Patient Name */}
         <div className="flex flex-col gap-2">
-          <label className="font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase">
+          <Label
+            className={`font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase ${errors.fullName ? "text-red-500" : ""}`}
+          >
             Full Name *
-          </label>
-          <input
-            {...register("details.fullName")}
+          </Label>
+          <Input
+            {...register("fullName")}
             type="text"
             placeholder="Enter your fullname"
-            className={`w-full h-14 px-4 py-2 bg-white rounded-lg border font-['Poppins:Medium',sans-serif] text-base`}
+            className={`w-full h-14 px-4 py-2 bg-white rounded-lg border font-['Poppins:Medium',sans-serif] text-base ${errors.fullName ? "ring-2 ring-[#ff000070]" : ""}`}
           />
+          {errors.fullName && (
+            <p className="text-red-500">{errors.fullName.message}</p>
+          )}
         </div>
       </div>
 
       {/* Gender Dropdown */}
       <div className="flex flex-col gap-2">
-        <label className="font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase">
+        <Label
+          className={`font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase ${errors.gender ? "text-red-500" : ""}`}
+        >
           Gender *
-        </label>
+        </Label>
+
         <div className="relative">
           <select
-            {...register("details.gender")}
-            className={`w-full h-14 px-4 py-2 bg-[#fcfcfc] rounded-lg border font-['Poppins:Medium',sans-serif] text-base appearance-none`}
+            {...register("gender")}
+            className={`w-full h-14 px-4 py-2 bg-[#fcfcfc] rounded-lg border font-['Poppins:Medium',sans-serif] text-base appearance-none ${errors.gender ? "ring-2 ring-[#ff000070]" : ""}`}
           >
+            <option value="" disabled>
+              Select gender
+            </option>
             <option value="male">Male</option>
             <option value="female">Female</option>
           </select>
@@ -83,31 +93,44 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
             <ChevronDown />
           </div>
         </div>
+        {errors.gender && (
+          <p className="text-red-500">{errors.gender.message}</p>
+        )}
       </div>
 
       {/* Date of Birth */}
       <div className="flex flex-col gap-2">
-        <label className="font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase">
+        <Label
+          className={`font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase ${errors.dateOfBirth ? "text-red-500" : ""}`}
+        >
           Date of Birth *
-        </label>
-        <input
-          {...register("details.dateOfBirth")}
-          type="text"
+        </Label>
+        <Input
+          {...register("dateOfBirth")}
+          type="date"
           placeholder="DD\MM\YYYY"
-          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border font-['Poppins:Medium',sans-serif] text-base`}
+          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border font-['Poppins:Medium',sans-serif] text-base ${errors.dateOfBirth ? "ring-2 ring-[#ff000070]" : ""}`}
         />
+        {errors.dateOfBirth && (
+          <p className="text-red-500">{errors.dateOfBirth.message}</p>
+        )}
       </div>
 
       {/* Reason for Visit */}
       <div className="flex flex-col gap-2">
-        <label className="font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase">
+        <Label
+          className={`font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase ${errors.reasonForVisit ? "text-red-500" : ""}`}
+        >
           Reason for Visit *
-        </label>
-        <textarea
-          {...register("details.reasonForVisit")}
+        </Label>
+        <Textarea
+          {...register("reasonForVisit")}
           placeholder="[Briefly describe your symptoms or reason for consultation]"
-          className={`w-full h-[244px] px-4 py-2 bg-white rounded-lg border font-['Poppins:Medium',sans-serif] text-base resize-none`}
+          className={`w-full h-[244px] px-4 py-2 bg-white rounded-lg border font-['Poppins:Medium',sans-serif] text-base resize-none ${errors.reasonForVisit ? "ring-2 ring-[#ff000070]" : ""}`}
         />
+        {errors.reasonForVisit && (
+          <p className="text-red-500">{errors.reasonForVisit.message}</p>
+        )}
       </div>
     </form>
   );
@@ -118,21 +141,17 @@ function Phase2() {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<z.infer<typeof stepC>>({
-    resolver: zodResolver(stepC),
+  } = useForm<z.infer<typeof othersPhase2>>({
+    resolver: zodResolver(othersPhase2),
     defaultValues: {
-      for: "others",
-      details: {
-        phase: 2,
-        fullName: "",
-        phoneNumber: "",
-        emailAddress: "",
-        relation: "",
-      },
+      fullName: "",
+      phoneNumber: "",
+      emailAddress: "",
+      relation: "",
     },
   });
 
-  const onSubmit = (data: z.infer<typeof stepC>) => {
+  const onSubmit = (data: z.infer<typeof othersPhase2>) => {
     console.log(data);
     console.log(errors);
   };
@@ -149,53 +168,61 @@ function Phase2() {
       </p>
       {/* Full Name */}
       <div className="flex flex-col gap-2">
-        <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
+        <Label
+          className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.fullName ? "text-red-500" : ""}`}
+        >
           Your Full Name *
         </Label>
         <Input
-          {...register("details.fullName")}
+          {...register("fullName")}
           type="text"
           placeholder="Enter your fullname"
-          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base`}
+          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.fullName ? "ring-2 ring-[#ff000070]" : ""}`}
         />
       </div>
 
       {/* Phone Number */}
       <div className="flex flex-col gap-2">
-        <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
+        <Label
+          className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.phoneNumber ? "text-red-500" : ""}`}
+        >
           Phone Number *
         </Label>
         <Input
-          {...register("details.phoneNumber")}
+          {...register("phoneNumber")}
           type="tel"
           placeholder="Enter your Number"
-          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base`}
+          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.phoneNumber ? "ring-2 ring-[#ff000070]" : ""}`}
         />
       </div>
 
       {/* Email Address */}
       <div className="flex flex-col gap-2">
-        <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
+        <Label
+          className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.emailAddress ? "text-red-500" : ""}`}
+        >
           Email Address *
         </Label>
         <Input
-          {...register("details.emailAddress")}
+          {...register("emailAddress")}
           type="email"
           placeholder="Enter your Email"
-          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base`}
+          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.emailAddress ? "ring-2 ring-[#ff000070]" : ""}`}
         />
       </div>
 
       {/* Relation */}
       <div className="flex flex-col gap-2">
-        <Label className="text-lg text-[#333] tracking-[0.4px] uppercase">
+        <Label
+          className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.relation ? "text-red-500" : ""}`}
+        >
           Relation *
         </Label>
         <Input
-          {...register("details.relation")}
+          {...register("relation")}
           type="text"
           placeholder="Enter your Relationship to patient"
-          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base`}
+          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.relation ? "ring-2 ring-[#ff000070]" : ""}`}
         />
       </div>
     </form>

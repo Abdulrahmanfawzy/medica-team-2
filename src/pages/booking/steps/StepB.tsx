@@ -22,9 +22,11 @@ export default function StepB() {
   });
 
   const onSubmit = (data: z.infer<typeof stepB>) => {
-    console.log(data.date);
+    console.log(data);
     changeStep(step + 1);
   };
+
+  console.log(errors);
 
   const timeSlots = {
     Morning: ["09:30", "10:00", "10:30", "11:00", "11:30"],
@@ -146,7 +148,9 @@ export default function StepB() {
       {/* Date & Time Selection */}
       <div className="flex gap-6">
         {/* Calendar */}
-        <div className="flex flex-col gap-6 p-8 rounded-2xl border border-[#e6e6e6] flex-1">
+        <div
+          className={`flex flex-col gap-6 p-8 rounded-2xl border border-[#e6e6e6] flex-1 ${errors.date && "ring-2 ring-red-500"}`}
+        >
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Calendar />
@@ -194,18 +198,13 @@ export default function StepB() {
 
               const isSelected = isDateSelected(item.date);
               const isAvailable = item.available;
-              const dateFormated = item.date?.toLocaleDateString("en-US", {
-                year: "numeric",
-                month: "2-digit",
-                day: "2-digit",
-              });
 
               return (
                 <label key={idx} className="block cursor-pointer">
                   <input
                     {...register("date")}
                     type="radio"
-                    value={dateFormated}
+                    value={item.date?.toISOString()}
                     checked={isSelected}
                     className="hidden"
                     disabled={!isAvailable}
@@ -242,7 +241,9 @@ export default function StepB() {
             </div>
           </div>
           {errors.date && (
-            <p className="text-red-500 text-sm">Please select a date</p>
+            <p className="text-red-500 text-sm mt-2">
+              {errors.date.message as string}
+            </p>
           )}
         </div>
 
@@ -290,7 +291,9 @@ export default function StepB() {
             ))
           )}
           {errors.time && (
-            <p className="text-red-500 text-sm">Please select a time slot</p>
+            <p className="text-red-500 text-sm mt-2">
+              {errors.time.message as string}
+            </p>
           )}
         </div>
       </div>
