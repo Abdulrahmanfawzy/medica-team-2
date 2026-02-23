@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Favorite from "./pages/Favorite";
 import Home from "./pages/Home";
 import LoginPage from "./pages/auth/loginPage/LoginPage";
@@ -22,21 +22,19 @@ const App = () => {
   ];
 
   return (
-    <div className="px-24">
+    <div>
       {!authRoutes.includes(pathname) && <Navbar />}
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/favorites" element={<Favorite />} />
-          {/* Auth routes */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/forget-password" element={<ForgetPasswordPage />} />
-          <Route path="/verify-account" element={<VerifyAccount />} />
-          <Route path="/verify-otp" element={<VerifyPage />} />
-          <Route path="/success-password" element={<SuccessPage />} />
-        </Routes>
-      </BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/favorites" element={<Favorite />} />
+        {/* Auth routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/forget-password" element={<ForgetPasswordPage />} />
+        <Route path="/verify-account" element={<VerifyAccount />} />
+        <Route path="/verify-otp" element={<VerifyPage />} />
+        <Route path="/success-password" element={<SuccessPage />} />
+      </Routes>
     </div>
   );
 };
