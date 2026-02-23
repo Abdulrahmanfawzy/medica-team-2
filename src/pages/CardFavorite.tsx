@@ -1,4 +1,5 @@
 import { MapPin, Star, Clock, Heart, MessageSquare } from "lucide-react";
+import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -77,7 +78,7 @@ function DoctorCard({
             <Button
               variant={"outline"}
               className="bg-white hover:bg-teal-700 hover:text-white px-6 border-teal-700 text-teal-700 cursor-pointer">
-              Book Appointment
+              <Link to="/booking">Book Appointment</Link>
             </Button>
             <Button
               variant="outline"

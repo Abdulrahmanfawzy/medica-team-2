@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from "react-router-dom";
+import Booking from "./pages/booking/Booking";
 import Favorite from "./pages/Favorite";
 import Home from "./pages/Home";
 import LoginPage from "./pages/auth/loginPage/LoginPage";
@@ -24,6 +25,7 @@ const App = () => {
   return (
     <div>
       {!authRoutes.includes(pathname) && <Navbar />}
+
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/favorites" element={<Favorite />} />
@@ -34,6 +36,8 @@ const App = () => {
         <Route path="/verify-account" element={<VerifyAccount />} />
         <Route path="/verify-otp" element={<VerifyPage />} />
         <Route path="/success-password" element={<SuccessPage />} />
+        {/* booking routes */}
+        <Route path="/booking" element={<Booking />} />
       </Routes>
     </div>
   );
