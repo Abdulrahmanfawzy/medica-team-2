@@ -29,7 +29,7 @@ export default function VerifyPage() {
 
   return (
     <div
-      className="relative -rotate-180 h-screen w-full flex items-center justify-center sm:p-8 bg-cover bg-center"
+      className="relative -rotate-180 min-h-screen w-full flex items-center justify-center sm:p-8 bg-cover bg-center"
       style={{
         backgroundImage: `url("/src/assets/auth/landing.jpg")`,
       }}
