@@ -29,7 +29,7 @@ export default function VerifyPage() {
 
   return (
     <div
-      className="relative -rotate-180 min-h-screen w-full flex items-center justify-center sm:p-16 bg-cover bg-center"
+      className="relative -rotate-180 h-screen w-full flex items-center justify-center sm:p-8 bg-cover bg-center"
       style={{
         backgroundImage: `url("/src/assets/auth/landing.jpg")`,
       }}
@@ -37,13 +37,13 @@ export default function VerifyPage() {
       {/* Overlay */}
       <Overlay />
       {/* Card */}
-      <Card className="rotate-180 w-full border-none max-w-2xl bg-white/10 backdrop-opacity-10 rounded-3xl shadow-1xl p-12">
+      <Card className="rotate-180 w-full border-none max-w-2xl bg-white/10 backdrop-opacity-10 rounded-3xl shadow-1xl p-[32px]">
         {/* Logo + Title */}
         <div className="flex flex-col items-center text-center">
           <img
             src="/src/assets/auth/logo.png"
             alt="Logo"
-            className="w-12 h-12 sm:w-25 sm:h-25 object-contain mb-8"
+            className="w-12 h-12 sm:w-25 sm:h-25 object-contain mb-6"
           />
           <Title title="One More Step" info="we send to you an OTP" />
           <p className="text-xs sm:text-sm text-teal-700 mt-3">
