@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { ChevronDown, Users, X } from "lucide-react";
+import { Users, X } from "lucide-react";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { useForm } from "react-hook-form";
@@ -59,56 +58,68 @@ export default function AddMember({
         </div>
 
         {/* Form Fields */}
-        <form id="member" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
+        <form
+          id="member"
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col gap-6"
+        >
           {/* Full Name */}
           <div className="flex flex-col gap-2">
-            <Label className=" text-sm text-[#333] tracking-[0.4px] uppercase">
+            <Label
+              className={`text-sm text-[#333] tracking-[0.4px] uppercase ${errors.fullName ? "text-red-500" : ""}`}
+            >
               Full Name *
             </Label>
             <Input
               {...register("fullName")}
               type="text"
               placeholder="Enter Full Name"
-              className="w-full h-12 px-4 py-2 bg-white rounded-lg border border-[#b3b3b3]  font-medium text-sm text-[#111] placeholder:text-[#999] focus:outline-none focus:ring-2 focus:ring-[#097178]/20"
+              className={`w-full h-12 px-4 py-2 bg-white rounded-lg border border-[#b3b3b3]  font-medium text-sm text-[#111] placeholder:text-[#999] focus:outline-none focus:ring-2 focus:ring-[#097178]/20 ${errors.fullName && "ring-2 ring-red-500"}`}
             />
           </div>
 
           {/* Phone Number */}
           <div className="flex flex-col gap-2">
-            <Label className=" text-sm text-[#333] tracking-[0.4px] uppercase">
+            <Label
+              className={`text-sm text-[#333] tracking-[0.4px] uppercase ${errors.phoneNumber ? "text-red-500" : ""}`}
+            >
               Phone Number *
             </Label>
             <Input
               {...register("phoneNumber")}
               type="tel"
               placeholder="Enter Phone Number"
-              className="w-full h-12 px-4 py-2 bg-[#fcfcfc] rounded-lg border border-[#b3b3b3]  font-medium text-sm text-[#111] placeholder:text-[#b3b3b3] focus:outline-none focus:ring-2 focus:ring-[#097178]/20"
+              className={`w-full h-12 px-4 py-2 bg-[#fcfcfc] rounded-lg border border-[#b3b3b3]  font-medium text-sm text-[#111] placeholder:text-[#b3b3b3] focus:outline-none focus:ring-2 focus:ring-[#097178]/20 ${errors.phoneNumber && "ring-2 ring-red-500"}`}
             />
           </div>
 
           {/* Email Address */}
           <div className="flex flex-col gap-2">
-            <Label className=" text-sm text-[#333] tracking-[0.4px] uppercase">
+            <Label
+              className={`text-sm text-[#333] tracking-[0.4px] uppercase ${errors.emailAddress ? "text-red-500" : ""}`}
+            >
               Email Address *
             </Label>
             <Input
               {...register("emailAddress")}
               type="email"
               placeholder="Enter email address"
-              className="w-full h-12 px-4 py-2 bg-[#fcfcfc] rounded-lg border border-[#b3b3b3]  font-medium text-sm text-[#111] placeholder:text-[#b3b3b3] focus:outline-none focus:ring-2 focus:ring-[#097178]/20"
+              className={`w-full h-12 px-4 py-2 bg-[#fcfcfc] rounded-lg border border-[#b3b3b3]  font-medium text-sm text-[#111] placeholder:text-[#b3b3b3] focus:outline-none focus:ring-2 focus:ring-[#097178]/20 ${errors.emailAddress && "ring-2 ring-red-500"}`}
             />
           </div>
 
           {/* Relationship to Patient */}
           <div className="flex flex-col gap-2">
-            <Label className=" text-sm text-[#333] tracking-[0.4px] uppercase">
+            <Label
+              className={`text-sm text-[#333] tracking-[0.4px] uppercase ${errors.relation ? "text-red-500" : ""}`}
+            >
               Relationship to patient *
             </Label>
             <Input
               {...register("relation")}
               type="text"
               placeholder="Enter your relationship to patient"
-              className="w-full h-12 px-4 py-2 bg-[#fcfcfc] rounded-lg border border-[#b3b3b3]  font-medium text-sm text-[#111] placeholder:text-[#b3b3b3] focus:outline-none focus:ring-2 focus:ring-[#097178]/20"
+              className={`w-full h-12 px-4 py-2 bg-[#fcfcfc] rounded-lg border border-[#b3b3b3]  font-medium text-sm text-[#111] placeholder:text-[#b3b3b3] focus:outline-none focus:ring-2 focus:ring-[#097178]/20 ${errors.relation && "ring-2 ring-red-500"}`}
             />
           </div>
         </form>

@@ -1,30 +1,13 @@
-import { ChevronDown, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AddMember from "@/components/booking/AddMember";
 import { useBooking } from "@/lib/providers/BookingProvider";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { stepC } from "@/lib/schemas/booking.schema";
 import MySelf from "@/components/booking/MySelf";
 import Others from "@/components/booking/Others";
 
 export default function StepC() {
-  const {
-    register,
-    formState: {},
-  } = useForm<z.infer<typeof stepC>>({
-    resolver: zodResolver(stepC),
-    defaultValues: {
-      for: "myself",
-      fullName: "",
-      phoneNumber: "",
-      emailAddress: "",
-      reasonForVisit: "",
-    },
-  });
   const [appointmentFor, setAppointmentFor] = useState<"myself" | "others">(
     "myself",
   );
@@ -51,14 +34,12 @@ export default function StepC() {
               This appointment is for:
             </p>
             <div className="flex gap-6 mb-[18px]">
-              <label className="cursor-pointer">
-                <input
+              <Label className="cursor-pointer">
+                <Input
                   type="radio"
-                  {...register("for")}
                   value="myself"
                   className="hidden peer"
                   onChange={(e) => {
-                    register("for").onChange(e);
                     setAppointmentFor("myself");
                     setPhase(1);
                   }}
@@ -73,15 +54,13 @@ export default function StepC() {
                 >
                   My Self
                 </div>
-              </label>
-              <label className="cursor-pointer">
-                <input
+              </Label>
+              <Label className="cursor-pointer">
+                <Input
                   type="radio"
-                  {...register("for")}
                   value="others"
                   className="hidden peer"
                   onChange={(e) => {
-                    register("for").onChange(e);
                     setAppointmentFor("others");
                     setPhase(1);
                   }}
@@ -96,7 +75,7 @@ export default function StepC() {
                 >
                   Others
                 </div>
-              </label>
+              </Label>
             </div>
           </div>
           {appointmentFor === "myself" ? (
