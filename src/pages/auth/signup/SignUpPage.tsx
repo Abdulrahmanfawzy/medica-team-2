@@ -60,7 +60,7 @@ export default function SignUpPage() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 sm:space-y-5 mt-14"
+            className="space-y-4 sm:space-y-5 mt-8"
           >
             {/* Name */}
             <FormField
