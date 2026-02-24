@@ -7,10 +7,10 @@ import StepB from "./steps/StepB";
 import StepC from "./steps/StepC";
 import StepD from "./steps/StepD";
 import StepE from "./steps/StepE";
-import { useBooking } from "../../lib/providers/BookingProvider";
+import { useSteps } from "../../lib/providers/StepsContext";
 
 export default function Booking() {
-  const { step, currentStep } = useBooking();
+  const { step, currentStep } = useSteps();
 
   return (
     <Container className="flex flex-col">
@@ -21,8 +21,8 @@ export default function Booking() {
             <Back />
             <Header
               step={step.toString()}
-              title={currentStep?.title}
-              description={currentStep?.description}
+              title={currentStep?.title || ""}
+              description={currentStep?.description || ""}
             />
           </div>
         )}

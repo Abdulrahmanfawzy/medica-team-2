@@ -42,7 +42,7 @@ export default function VerifyAccount() {
       {/* Overlay */}
       <Overlay />
       {/* Card */}
-      <div className="rotate-180 w-full max-w-2xl bg-white/10 backdrop-opacity-10 rounded-3xl shadow-1xl p-12">
+      <div className="rotate-180 w-full max-w-2xl bg-white/10 backdrop-opacity-10 rounded-3xl shadow-1xl p-[32px]">
         {/* Logo + Title */}
         <div className="flex flex-col items-center text-center">
           <img

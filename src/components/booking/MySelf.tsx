@@ -5,11 +5,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { myselfSchema } from "@/lib/schemas/booking.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useBooking } from "@/lib/providers/BookingProvider";
+import { useBooking } from "@/lib/providers/BookingContext";
+import { useSteps } from "@/lib/providers/StepsContext";
 
 export default function MySelf() {
-  const { changeStep } = useBooking();
-
+  const { data: formData, updateForm } = useBooking();
+  const { changeStep } = useSteps();
   const {
     register,
     handleSubmit,
@@ -26,6 +27,19 @@ export default function MySelf() {
 
   const onSubmit = (data: z.infer<typeof myselfSchema>) => {
     changeStep(4);
+    const payload = {
+      ...formData,
+      patientInfo: {
+        mySelf: {
+          fullName: data.fullName,
+          emailAddress: data.emailAddress,
+          phoneNumber: data.phoneNumber,
+          reasonForVisit: data.reasonForVisit,
+        },
+      },
+    };
+
+    updateForm(payload);
   };
 
   return (

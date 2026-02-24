@@ -3,15 +3,26 @@ import { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import AddMember from "@/components/booking/AddMember";
-import { useBooking } from "@/lib/providers/BookingProvider";
+import { useSteps } from "@/lib/providers/StepsContext";
 import MySelf from "@/components/booking/MySelf";
 import Others from "@/components/booking/Others";
+
+import { Button } from "@/components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
+import { ChevronDownIcon } from "lucide-react";
+import { useBooking } from "@/lib/providers/BookingContext";
 
 export default function StepC() {
   const [appointmentFor, setAppointmentFor] = useState<"myself" | "others">(
     "myself",
   );
-  const { step, changeStep } = useBooking();
+  const { step, changeStep } = useSteps();
+  const { data } = useBooking();
   const [phase, setPhase] = useState(1);
   const [addMember, setAddMember] = useState(false);
 
@@ -79,12 +90,75 @@ export default function StepC() {
             </div>
           </div>
           {appointmentFor === "myself" ? (
-            //
-
             <MySelf />
           ) : (
             <Others setPhase={setPhase} phase={phase} />
           )}
+
+          {/* Show data of other user */}
+          <div className="flex flex-col gap-1">
+            {(data.patientInfo?.otherPerson || data.patientInfo?.mainPatient) &&
+              [
+                data.patientInfo.mainPatient,
+                ...(data.patientInfo.otherPerson || []),
+              ].map((person, index) => (
+                <CardContent
+                  key={index}
+                  className="px-0 border-t border-[#b3b3b3] bg-[#fcfcfc] shadow-md rounded-md py-2"
+                >
+                  <Collapsible className="data-open:bg-muted rounded-md">
+                    <CollapsibleTrigger asChild>
+                      <Button
+                        variant="ghost"
+                        className="w-full flex items-center justify-between"
+                      >
+                        {person?.fullName || "Unnamed Member"}
+                        <ChevronDownIcon className="transition-transform duration-200 data-[state=open]:rotate-180" />
+                      </Button>
+                    </CollapsibleTrigger>
+                    <CollapsibleContent className="flex flex-col gap-2 p-4 pt-0 text-sm border-t border-gray-100 mt-2">
+                      {person?.gender && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-500">Gender:</span>
+                          <span className="font-medium">{person.gender}</span>
+                        </div>
+                      )}
+                      {person?.dateOfBirth && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-500">Date of Birth:</span>
+                          <span className="font-medium">
+                            {person.dateOfBirth}
+                          </span>
+                        </div>
+                      )}
+                      {person?.relation && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-500">Relation:</span>
+                          <span className="font-medium">{person.relation}</span>
+                        </div>
+                      )}
+                      {person?.reasonForVisit && (
+                        <div className="flex justify-between">
+                          <span className="text-gray-500">
+                            Reason for visit:
+                          </span>
+                          <span className="font-medium">
+                            {person.reasonForVisit}
+                          </span>
+                        </div>
+                      )}
+                      <div className="flex justify-between pt-2 border-t border-dashed">
+                        <span className="text-gray-500">Appointment:</span>
+                        <span className="font-medium text-[#097178]">
+                          {data.appointment?.date || "No date"} at{" "}
+                          {data.appointment?.time || "No time"}
+                        </span>
+                      </div>
+                    </CollapsibleContent>
+                  </Collapsible>
+                </CardContent>
+              ))}
+          </div>
 
           {/* Add Family Member Section */}
           {addMember && <AddMember setAddMember={setAddMember} />}
@@ -92,14 +166,16 @@ export default function StepC() {
             <p className="text-base text-[#4a5565] mb-4">
               Save family member details for faster booking in the future
             </p>
-            <button
-              type="button"
-              onClick={() => setAddMember(true)}
-              className="bg-[#097178] text-[#fcfcfc] px-4 py-2.5 rounded-lg text-lg flex items-center gap-2 h-12 w-[290px]"
-            >
-              <Plus />
-              ADD FAMILY MEMBER
-            </button>
+            {(appointmentFor === "myself" || phase === 2) && (
+              <button
+                type="button"
+                onClick={() => setAddMember(true)}
+                className="cursor-pointer bg-[#097178] text-[#fcfcfc] px-4 py-2.5 rounded-lg text-lg flex items-center gap-2 h-12 w-[290px]"
+              >
+                <Plus />
+                ADD FAMILY MEMBER
+              </button>
+            )}
           </div>
         </div>
       </div>

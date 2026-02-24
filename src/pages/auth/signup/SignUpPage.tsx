@@ -49,7 +49,7 @@ export default function SignUpPage() {
           <img
             src="/src/assets/auth/logo.png"
             alt="Logo"
-            className="w-12 h-12 sm:w-25 sm:h-25 object-contain"
+            className="w-12 h-12 sm:w-25 sm:h-25 object-contain mb-6"
           />
           <Title
             title="Registration"
@@ -60,7 +60,7 @@ export default function SignUpPage() {
         <Form {...form}>
           <form
             onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-4 sm:space-y-5 mt-14"
+            className="space-y-4 sm:space-y-5 mt-8"
           >
             {/* Name */}
             <FormField

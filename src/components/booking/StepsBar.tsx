@@ -1,7 +1,7 @@
-import { useBooking } from "../../lib/providers/BookingProvider";
+import { useSteps } from "../../lib/providers/StepsContext";
 
 export default function StepsBar() {
-  const { steps } = useBooking();
+  const { steps } = useSteps();
   return (
     <div className="flex items-start self-center justify-between lg:w-[824px] w-full p-8">
       {steps.map(

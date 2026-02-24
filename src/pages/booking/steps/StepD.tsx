@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { useBooking } from "@/lib/providers/BookingProvider";
-import { CreditCard, Banknote, ChevronUp, ChevronDown } from "lucide-react";
+import { useSteps } from "@/lib/providers/StepsContext";
+import { CreditCard, Banknote, ChevronUp } from "lucide-react";
 
 export default function StepD() {
-    const { bookingData, setBookingData, changeStep } = useBooking();
+    const { bookingData, setBookingData, changeStep } = useSteps();
     const [isFormOpen, setIsFormOpen] = useState(true);
 
     const handleSelectMethod = (method: "cash" | "online") => {
