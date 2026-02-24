@@ -121,17 +121,25 @@ const SearchResuls = () => {
                     ) : (
                         doctors.slice(startIndex, endIndex).map((doctor) => (
                             <div key={doctor.id}
-                                onClick={() => navigate(`/doctor/${doctor.id}` , {state: {doctor}})} 
+                                onClick={() => navigate(`/doctor/${doctor.id}`, { state: { doctor } })}
                                 className="border border-gray-200 rounded-lg p-4 cursor-pointer hover:shadow-md transition-shadow">
                                 <img src={doctor.image} alt={doctor.name} className="w-full h-48 object-cover rounded-lg mb-4" />
                                 <h3 className="text-lg text-chart-2 font-bold mb-2">{doctor.name}</h3>
                                 <p className="text-gray-600 mb-2">{doctor.specialty}</p>
-                            <div className="flex items-center mb-2">
-                                <span className="text-yellow-500 mr-1">★</span>
-                                <span className="text-gray-700">{doctor.rating}</span>
+                                <div className="flex items-center mb-2">
+                                    <span className="text-yellow-500 mr-1">★</span>
+                                    <span className="text-gray-700">{doctor.rating}</span>
+                                </div>
+                                <button
+                                    onClick={(e) => {
+                                        e.stopPropagation();
+                                        navigate("/booking");
+                                    }}
+                                    className="bg-chart-2 cursor-pointer w-full text-white px-4 py-2 rounded-lg"
+                                >
+                                    Book Appointment
+                                </button>
                             </div>
-                            <button className="bg-chart-2 cursor-pointer w-full text-white px-4 py-2 rounded-lg">Book Appointment</button>
-                        </div>
                         ))
                     )}
                 </div>
@@ -141,17 +149,17 @@ const SearchResuls = () => {
                             {
                                 currentPage > 1 && (
                                     <button onClick={() => setCurrentPage(currentPage - 1)}
-                                            className="px-4 border border-chart-2 text-chart-2 font-semibold py-2 cursor-pointer w-[130px] rounded-lg">Previous</button>
+                                        className="px-4 border border-chart-2 text-chart-2 font-semibold py-2 cursor-pointer w-[130px] rounded-lg">Previous</button>
                                 )
                             }
                             {Array.from({ length: totalPages }, (_, i) => (
                                 <button key={i} onClick={() => setCurrentPage(i + 1)}
-                                        className={`px-4 py-2 cursor-pointer rounded-lg ${currentPage === i + 1 ? "bg-chart-2 text-white" : ""}`}>{i + 1}</button>
+                                    className={`px-4 py-2 cursor-pointer rounded-lg ${currentPage === i + 1 ? "bg-chart-2 text-white" : ""}`}>{i + 1}</button>
                             ))}
                             {
                                 currentPage < totalPages && (
                                     <button onClick={() => setCurrentPage(currentPage + 1)}
-                                            className="px-4 border border-chart-2 text-chart-2 font-semibold py-2 cursor-pointer w-[130px] rounded-lg">Next</button>
+                                        className="px-4 border border-chart-2 text-chart-2 font-semibold py-2 cursor-pointer w-[130px] rounded-lg">Next</button>
                                 )
                             }
                         </div>

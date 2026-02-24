@@ -1,5 +1,3 @@
-
-//? Import Components
 import SearchBar from "../components/common/Search";
 import DoctorFilters from "../components/common/DoctorFilters";
 import SearchResuls from "../components/common/SearchResuls";

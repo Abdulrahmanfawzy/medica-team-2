@@ -12,12 +12,10 @@ type OtherPerson = {
 
 type FormData = {
   visitType?: "online" | "clinic";
-
   appointment?: Partial<{
     date: string;
     time: string;
   }>;
-
   patientInfo?: {
     mySelf?: Partial<{
       fullName: string;
@@ -25,19 +23,18 @@ type FormData = {
       phoneNumber: string;
       reasonForVisit: string;
     }>;
-
     mainPatient?: Partial<OtherPerson>;
-
     otherPerson?: Partial<OtherPerson>[];
   };
 };
 
 type FormContextType = {
   data: Partial<FormData>;
+  step: number;
+  setStep: (step: number) => void;
   updateForm: (values: Partial<FormData>) => void;
   addOtherPerson: (person: Partial<OtherPerson>) => void;
   removeOtherPerson: (index: number) => void;
-
   resetForm: () => void;
 };
 
@@ -45,22 +42,19 @@ const FormContext = createContext<FormContextType | null>(null);
 
 export function FormProvider({ children }: { children: ReactNode }) {
   const [data, setData] = useState<Partial<FormData>>({});
+  const [step, setStep] = useState(1);
 
-  // update form data
   const updateForm = (values: Partial<FormData>) => {
     setData((prev) => ({
       ...prev,
       ...values,
-
       appointment: {
         ...prev.appointment,
         ...values.appointment,
       },
-
       patientInfo: {
         ...prev.patientInfo,
         ...values.patientInfo,
-
         mySelf: {
           ...prev.patientInfo?.mySelf,
           ...values.patientInfo?.mySelf,
@@ -69,7 +63,6 @@ export function FormProvider({ children }: { children: ReactNode }) {
     }));
   };
 
-  // add other person
   const addOtherPerson = (person: Partial<OtherPerson>) => {
     setData((prev) => ({
       ...prev,
@@ -80,7 +73,6 @@ export function FormProvider({ children }: { children: ReactNode }) {
     }));
   };
 
-  // remove other person
   const removeOtherPerson = (index: number) => {
     setData((prev) => ({
       ...prev,
@@ -93,12 +85,17 @@ export function FormProvider({ children }: { children: ReactNode }) {
     }));
   };
 
-  const resetForm = () => setData({});
+  const resetForm = () => {
+    setData({});
+    setStep(1);
+  };
 
   return (
     <FormContext.Provider
       value={{
         data,
+        step,
+        setStep,
         updateForm,
         addOtherPerson,
         removeOtherPerson,
@@ -112,10 +109,8 @@ export function FormProvider({ children }: { children: ReactNode }) {
 
 export function useBooking() {
   const context = useContext(FormContext);
-
   if (!context) {
     throw new Error("useBooking must be used inside FormProvider");
   }
-
   return context;
 }

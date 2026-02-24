@@ -15,7 +15,7 @@ export default function AddMember({
   setAddMember: (value: boolean) => void;
 }) {
   const [showSuccess, setShowSuccess] = useState(false);
-  const { addOtherPerson } = useBooking();
+  const { addOtherPerson, setStep } = useBooking();
 
   const {
     register,
@@ -27,7 +27,9 @@ export default function AddMember({
   });
 
   const onSubmit = (data: z.infer<typeof newMember>) => {
-    addOtherPerson(data);
+    addOtherPerson(data); 
+    setStep(4);
+
     setShowSuccess(true);
   };
 
@@ -66,7 +68,7 @@ export default function AddMember({
               </button>
             </div>
 
-            {/* Form Fields */}
+            {/* Form */}
             <form id="member" onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6">
               <div className="flex flex-col gap-2">
                 <Label className={`text-sm tracking-[0.4px] uppercase ${errors.fullName ? "text-red-500" : "text-[#333]"}`}>
@@ -113,7 +115,7 @@ export default function AddMember({
               </div>
             </form>
 
-            {/* Action Buttons */}
+            {/* Buttons */}
             <div className="flex flex-col-reverse md:flex-row gap-4 pt-4">
               <button
                 type="button"
