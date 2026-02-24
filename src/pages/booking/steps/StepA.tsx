@@ -4,10 +4,12 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { stepA } from "@/lib/schemas/booking.schema";
 import type z from "zod";
-import { useBooking } from "@/lib/providers/BookingProvider";
+import { useSteps } from "@/lib/providers/StepsContext";
+import { useBooking } from "@/lib/providers/BookingContext";
 
 export default function StepA() {
-  const {step, changeStep} = useBooking();
+  const { step, changeStep } = useSteps();
+  const { data, updateForm } = useBooking();
   const {
     register,
     handleSubmit,
@@ -45,7 +47,7 @@ export default function StepA() {
   ];
 
   const onSubmit = (data: z.infer<typeof stepA>) => {
-    console.log(data);
+    updateForm({ visitType: data.visitType });
     changeStep(step + 1);
   };
 
@@ -84,12 +86,13 @@ export default function StepA() {
                 name="visitType"
                 value={visit.value}
                 className="hidden peer"
+                defaultChecked={visit.value === data?.visitType}
               />
 
               {/* card */}
               <div
                 className={`flex flex-col gap-6 items-center p-8 rounded-2xl border border-[#b3b3b3] transition-colors
-        peer-checked:border-[#097178] peer-checked:bg-[#097178]/5 hover:border-[#097178] ${errors.visitType && "outline-4 outline-[#ff000070]"}`}
+        peer-checked:border-[#097178] peer-checked:bg-[#097178]/15 hover:border-[#097178] ${errors.visitType && "outline-4 outline-[#ff000070]"}`}
               >
                 <div className="w-[116px] h-[116px] rounded-full border-2 border-[#333] flex items-center justify-center">
                   {visit.icon}

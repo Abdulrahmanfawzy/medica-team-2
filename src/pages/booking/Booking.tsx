@@ -5,10 +5,10 @@ import Header from "../../components/booking/Header";
 import StepA from "./steps/StepA";
 import StepB from "./steps/StepB";
 import StepC from "./steps/StepC";
-import { useBooking } from "../../lib/providers/BookingProvider";
+import { useSteps } from "../../lib/providers/StepsContext";
 
 export default function Booking() {
-  const { step, currentStep } = useBooking();
+  const { step, currentStep } = useSteps();
 
   return (
     <Container className="flex flex-col">
