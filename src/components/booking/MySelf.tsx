@@ -5,8 +5,10 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { myselfSchema } from "@/lib/schemas/booking.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useBooking } from "@/lib/providers/BookingContext";
 
 export default function MySelf() {
+  const { data: formData, updateForm } = useBooking();
   const {
     register,
     handleSubmit,
@@ -22,10 +24,20 @@ export default function MySelf() {
   });
 
   const onSubmit = (data: z.infer<typeof myselfSchema>) => {
-    console.log(data);
-    console.log(errors);
+    const payload = {
+      ...formData,
+      patientInfo: {
+        mySelf: {
+          fullName: data.fullName,
+          emailAddress: data.emailAddress,
+          phoneNumber: data.phoneNumber,
+          reasonForVisit: data.reasonForVisit,
+        },
+      },
+    };
+
+    updateForm(payload);
   };
-  console.log(errors);
 
   return (
     <form

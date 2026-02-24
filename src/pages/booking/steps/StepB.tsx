@@ -1,17 +1,35 @@
 import { Calendar, ChevronLeft, ChevronRight } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
-import { useBooking } from "@/lib/providers/BookingProvider";
+import { useSteps } from "@/lib/providers/StepsContext";
+import { useBooking } from "@/lib/providers/BookingContext";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { stepB } from "@/lib/schemas/booking.schema";
 import type z from "zod";
 
 export default function StepB() {
-  const { step, changeStep } = useBooking();
-  const [selectedDate, setSelectedDate] = useState<Date | null>();
-  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
-  const [selectedTime, setSelectedTime] = useState<string>();
-  const [time, setTime] = useState<object>({});
+  const { step, changeStep } = useSteps();
+  const { data, updateForm } = useBooking();
+  const initialDate = data.appointment?.date
+    ? new Date(data.appointment.date)
+    : null;
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(initialDate);
+  const [currentMonth, setCurrentMonth] = useState<Date>(
+    initialDate || new Date(),
+  );
+  const [selectedTime, setSelectedTime] = useState<string>(
+    data.appointment?.time || "",
+  );
+  const [time, setTime] = useState<object>(
+    initialDate
+      ? {
+          Morning: ["09:30", "10:00", "10:30", "11:00", "11:30"],
+          Afternoon: ["12:00", "12:30", "13:00", "13:30", "14:00", "14:30"],
+          Evening: ["16:00", "16:30", "17:00", "17:30", "18:00"],
+        }
+      : {},
+  );
 
   const {
     register,
@@ -19,14 +37,16 @@ export default function StepB() {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(stepB),
+    defaultValues: {
+      date: data.appointment?.date || "",
+      time: data.appointment?.time || "",
+    },
   });
 
   const onSubmit = (data: z.infer<typeof stepB>) => {
-    console.log(data);
+    updateForm({ appointment: { date: data.date, time: data.time } });
     changeStep(step + 1);
   };
-
-  console.log(errors);
 
   const timeSlots = {
     Morning: ["09:30", "10:00", "10:30", "11:00", "11:30"],
@@ -35,7 +55,7 @@ export default function StepB() {
   };
 
   useEffect(() => {
-    if (selectedDate && !selectedTime) {
+    if (selectedDate) {
       setTime(timeSlots);
     }
   }, [selectedDate]);
@@ -271,6 +291,7 @@ export default function StepB() {
                       type="radio"
                       value={t}
                       className="hidden"
+                      checked={t === selectedTime}
                       onChange={(e) => {
                         register("time").onChange(e);
                         setSelectedTime(t);

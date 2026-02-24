@@ -1,13 +1,16 @@
-import { StrictMode } from 'react'
-import { createRoot } from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import { BookingProvider } from './lib/providers/BookingProvider'
+import { StrictMode } from "react";
+import { createRoot } from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import { BookingProvider } from "./lib/providers/StepsContext.tsx";
+import { FormProvider } from "./lib/providers/BookingContext.tsx";
 
-createRoot(document.getElementById('root')!).render(
-  <BookingProvider>
-    <StrictMode>
-      <App />
-    </StrictMode>
-  </BookingProvider>,
-)
+createRoot(document.getElementById("root")!).render(
+  <FormProvider>
+    <BookingProvider>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </BookingProvider>
+  </FormProvider>,
+);

@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ChevronDown } from "lucide-react";
+import { useBooking } from "@/lib/providers/BookingContext";
 
 export default function Others({
   setPhase,
@@ -26,18 +27,31 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
     resolver: zodResolver(othersPhase1),
     defaultValues: {
       fullName: "",
-      gender: "male",
+      gender: "",
       dateOfBirth: "",
       reasonForVisit: "",
     },
   });
 
-  const onSubmit = (data: z.infer<typeof othersPhase1>) => {
-    console.log(data);
-    setPhase(2);
-  };
+  const { data: formData, updateForm } = useBooking();
 
-  console.log(errors);
+  const onSubmit = (data: z.infer<typeof othersPhase1>) => {
+    setPhase(2);
+    const payload = {
+      ...formData,
+      patientInfo: {
+        ...formData.patientInfo,
+        mainPatient: {
+          fullName: data.fullName,
+          gender: data.gender,
+          dateOfBirth: data.dateOfBirth,
+          reasonForVisit: data.reasonForVisit,
+        },
+      },
+    };
+
+    updateForm(payload);
+  };
 
   return (
     <form
@@ -144,42 +158,42 @@ function Phase2() {
   } = useForm<z.infer<typeof othersPhase2>>({
     resolver: zodResolver(othersPhase2),
     defaultValues: {
-      fullName: "",
       phoneNumber: "",
       emailAddress: "",
       relation: "",
     },
   });
+  const { data: formData, updateForm } = useBooking();
 
-  const onSubmit = (data: z.infer<typeof othersPhase2>) => {
-    console.log(data);
-    console.log(errors);
+  const phase1Submit = (data: z.infer<typeof othersPhase2>) => {
+    const payload = {
+      ...formData,
+      patientInfo: {
+        ...formData.patientInfo,
+        mainPatient: {
+          ...formData.patientInfo?.mainPatient,
+          phoneNumber: data.phoneNumber,
+          emailAddress: data.emailAddress,
+          relation: data.relation,
+        },
+      },
+    };
+
+    console.log("This data come from phase 1 payload", payload);
+    console.log("This data come from phase 1 formData", formData);
+
+    updateForm(payload);
   };
-  console.log(errors);
 
   return (
     <form
       id="phase2"
-      onSubmit={handleSubmit(onSubmit)}
+      onSubmit={handleSubmit(phase1Submit)}
       className="flex flex-col gap-4"
     >
       <p className="font-['Poppins:Medium',sans-serif] text-lg text-[#0a0a0a] tracking-[0.4px] uppercase">
         Contact Person Information
       </p>
-      {/* Full Name */}
-      <div className="flex flex-col gap-2">
-        <Label
-          className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.fullName ? "text-red-500" : ""}`}
-        >
-          Your Full Name *
-        </Label>
-        <Input
-          {...register("fullName")}
-          type="text"
-          placeholder="Enter your fullname"
-          className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.fullName ? "ring-2 ring-[#ff000070]" : ""}`}
-        />
-      </div>
 
       {/* Phone Number */}
       <div className="flex flex-col gap-2">
