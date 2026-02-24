@@ -44,22 +44,36 @@ const BookingContext = createContext<any>(null);
 export function BookingProvider({ children }: { children: React.ReactNode }) {
   const [step, setStep] = useState(1);
   const [steps, setSteps] = useState(initialSteps);
+  
+  const [bookingData, setBookingData] = useState({
+    visitType: "",
+    dateTime: "",
+    patientId: "",
+    paymentMethod: "online",
+  });
 
   const changeStep = (newStep: number) => {
     setStep(newStep);
-
     const updated = steps.map((s) => ({
       ...s,
       active: s.number <= newStep,
     }));
-
     setSteps(updated);
   };
 
   const currentStep = steps.find((s) => s.number === step);
 
   return (
-    <BookingContext.Provider value={{ step, steps, changeStep, currentStep }}>
+    <BookingContext.Provider
+      value={{
+        step,
+        steps,
+        changeStep,
+        currentStep,
+        bookingData,
+        setBookingData, 
+      }}
+    >
       {children}
     </BookingContext.Provider>
   );

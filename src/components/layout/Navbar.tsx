@@ -11,7 +11,7 @@ const Navbar = () => {
       <div className="hidden sm:flex justify-around items-center sticky top-0 z-50 bg-white shadow-sm h-20">
         <div className="logo flex flex-col items-center">
           <img className="w-12" src={logo} alt="logo" />
-          <p className="text-xl font-bold text-text-primary-blue">Safarni</p>
+          <p className="text-xl font-bold text-text-primary-blue">MediLink</p>
         </div>
 
         <ul className="flex gap-12">

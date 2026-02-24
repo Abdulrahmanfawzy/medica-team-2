@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ChevronDown } from "lucide-react";
+import { useBooking } from "@/lib/providers/BookingProvider";
 
 export default function Others({
   setPhase,
@@ -33,11 +34,8 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
   });
 
   const onSubmit = (data: z.infer<typeof othersPhase1>) => {
-    console.log(data);
     setPhase(2);
   };
-
-  console.log(errors);
 
   return (
     <form
@@ -45,13 +43,11 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4"
     >
-      {/* Patient Information */}
       <div className="flex flex-col gap-4">
         <p className="font-['Poppins:Medium',sans-serif] text-lg text-[#0a0a0a] tracking-[0.4px] uppercase">
           Patient Information
         </p>
 
-        {/* Patient Name */}
         <div className="flex flex-col gap-2">
           <Label
             className={`font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase ${errors.fullName ? "text-red-500" : ""}`}
@@ -70,7 +66,6 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
         </div>
       </div>
 
-      {/* Gender Dropdown */}
       <div className="flex flex-col gap-2">
         <Label
           className={`font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase ${errors.gender ? "text-red-500" : ""}`}
@@ -98,7 +93,6 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
         )}
       </div>
 
-      {/* Date of Birth */}
       <div className="flex flex-col gap-2">
         <Label
           className={`font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase ${errors.dateOfBirth ? "text-red-500" : ""}`}
@@ -116,7 +110,6 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
         )}
       </div>
 
-      {/* Reason for Visit */}
       <div className="flex flex-col gap-2">
         <Label
           className={`font-['Poppins:Regular',sans-serif] text-lg text-[#333] tracking-[0.4px] uppercase ${errors.reasonForVisit ? "text-red-500" : ""}`}
@@ -137,6 +130,7 @@ function Phase1({ setPhase }: { setPhase: (phase: number) => void }) {
 }
 
 function Phase2() {
+  const { changeStep } = useBooking();
   const {
     register,
     handleSubmit,
@@ -152,10 +146,8 @@ function Phase2() {
   });
 
   const onSubmit = (data: z.infer<typeof othersPhase2>) => {
-    console.log(data);
-    console.log(errors);
+    changeStep(4);
   };
-  console.log(errors);
 
   return (
     <form
@@ -166,7 +158,6 @@ function Phase2() {
       <p className="font-['Poppins:Medium',sans-serif] text-lg text-[#0a0a0a] tracking-[0.4px] uppercase">
         Contact Person Information
       </p>
-      {/* Full Name */}
       <div className="flex flex-col gap-2">
         <Label
           className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.fullName ? "text-red-500" : ""}`}
@@ -179,9 +170,11 @@ function Phase2() {
           placeholder="Enter your fullname"
           className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.fullName ? "ring-2 ring-[#ff000070]" : ""}`}
         />
+        {errors.fullName && (
+          <p className="text-red-500 text-sm">{errors.fullName.message}</p>
+        )}
       </div>
 
-      {/* Phone Number */}
       <div className="flex flex-col gap-2">
         <Label
           className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.phoneNumber ? "text-red-500" : ""}`}
@@ -194,9 +187,11 @@ function Phase2() {
           placeholder="Enter your Number"
           className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.phoneNumber ? "ring-2 ring-[#ff000070]" : ""}`}
         />
+        {errors.phoneNumber && (
+          <p className="text-red-500 text-sm">{errors.phoneNumber.message}</p>
+        )}
       </div>
 
-      {/* Email Address */}
       <div className="flex flex-col gap-2">
         <Label
           className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.emailAddress ? "text-red-500" : ""}`}
@@ -209,9 +204,11 @@ function Phase2() {
           placeholder="Enter your Email"
           className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.emailAddress ? "ring-2 ring-[#ff000070]" : ""}`}
         />
+        {errors.emailAddress && (
+          <p className="text-red-500 text-sm">{errors.emailAddress.message}</p>
+        )}
       </div>
 
-      {/* Relation */}
       <div className="flex flex-col gap-2">
         <Label
           className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.relation ? "text-red-500" : ""}`}
@@ -224,6 +221,9 @@ function Phase2() {
           placeholder="Enter your Relationship to patient"
           className={`w-full h-14 px-4 py-2 bg-white rounded-lg border text-base ${errors.relation ? "ring-2 ring-[#ff000070]" : ""}`}
         />
+        {errors.relation && (
+          <p className="text-red-500 text-sm">{errors.relation.message}</p>
+        )}
       </div>
     </form>
   );

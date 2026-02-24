@@ -5,8 +5,11 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { myselfSchema } from "@/lib/schemas/booking.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useBooking } from "@/lib/providers/BookingProvider";
 
 export default function MySelf() {
+  const { changeStep } = useBooking();
+
   const {
     register,
     handleSubmit,
@@ -22,10 +25,8 @@ export default function MySelf() {
   });
 
   const onSubmit = (data: z.infer<typeof myselfSchema>) => {
-    console.log(data);
-    console.log(errors);
+    changeStep(4);
   };
-  console.log(errors);
 
   return (
     <form
@@ -33,7 +34,6 @@ export default function MySelf() {
       onSubmit={handleSubmit(onSubmit)}
       className="flex flex-col gap-4"
     >
-      {/* Full Name */}
       <div className="flex flex-col gap-2">
         <Label
           className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.fullName && "text-red-500"}`}
@@ -51,7 +51,6 @@ export default function MySelf() {
         )}
       </div>
 
-      {/* Phone Number */}
       <div className="flex flex-col gap-2">
         <Label
           className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.phoneNumber && "text-red-500"}`}
@@ -69,7 +68,6 @@ export default function MySelf() {
         )}
       </div>
 
-      {/* Email Address */}
       <div className="flex flex-col gap-2">
         <Label
           className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.emailAddress && "text-red-500"}`}
@@ -87,7 +85,6 @@ export default function MySelf() {
         )}
       </div>
 
-      {/* Reason for Visit */}
       <div className="flex flex-col gap-2">
         <Label
           className={`text-lg text-[#333] tracking-[0.4px] uppercase ${errors.reasonForVisit && "text-red-500"}`}
