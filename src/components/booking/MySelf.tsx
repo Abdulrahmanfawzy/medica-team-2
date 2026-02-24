@@ -26,7 +26,6 @@ export default function MySelf() {
   });
 
   const onSubmit = (data: z.infer<typeof myselfSchema>) => {
-    changeStep(4);
     const payload = {
       ...formData,
       patientInfo: {
@@ -38,6 +37,7 @@ export default function MySelf() {
         },
       },
     };
+    changeStep(4);
 
     updateForm(payload);
   };

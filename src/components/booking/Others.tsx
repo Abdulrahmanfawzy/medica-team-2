@@ -7,6 +7,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { ChevronDown } from "lucide-react";
 import { useBooking } from "@/lib/providers/BookingContext";
+import { useSteps } from "@/lib/providers/StepsContext";
 
 export default function Others({
   setPhase,
@@ -157,6 +158,8 @@ function Phase2() {
       relation: "",
     },
   });
+
+  const { changeStep } = useSteps();
   const { data: formData, updateForm } = useBooking();
 
   const phase1Submit = (data: z.infer<typeof othersPhase2>) => {
@@ -172,6 +175,8 @@ function Phase2() {
         },
       },
     };
+
+    changeStep(4);
 
     console.log("This data come from phase 1 payload", payload);
     console.log("This data come from phase 1 formData", formData);
