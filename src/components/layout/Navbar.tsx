@@ -1,106 +1,86 @@
-import { NavLink } from "react-router-dom";
-import { Home, Heart, Search, SlidersHorizontal, User } from "lucide-react";
-import logo from "@/assets/images/logo.png";
+
+import { NavLink } from 'react-router-dom';
+import { Bell, Heart } from 'lucide-react';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage
+} from "@/components/ui/avatar";
 
 const Navbar = () => {
-  const mobileLinkStyle =
-    "flex flex-col items-center gap-1 cursor-pointer transition-all duration-300";
+  const navLinks = [
+    { name: 'Home', to: '/' },
+    { name: 'Find Doctors', to: '/find-doctors' },
+    { name: 'Online Consultation', to: '/consultation' },
+  ];
 
   return (
-    <>
-      <div className="hidden sm:flex justify-around items-center sticky top-0 z-50 bg-white shadow-sm h-20">
-        <div className="logo flex flex-col items-center">
-          <img className="w-12" src={logo} alt="logo" />
-          <p className="text-xl font-bold text-text-primary-blue">Safarni</p>
-        </div>
+    <header className="sticky top-0 z-50 w-full border-b border-gray-100 bg-white px-4 md:px-8">
+      <div className="mx-auto flex h-20 max-w-7xl items-center justify-between">
+        {/* Brand Identity */}
+        <NavLink to="/" className="flex flex-col items-start focus-visible:outline-none">
+          <span className="text-2xl font-bold tracking-tight text-[#006D77]">
+            MediLink
+          </span>
+          <span className="text-[10px] font-medium leading-none text-[#006D77]/80">
+            Your Health, Connected.
+          </span>
+        </NavLink>
 
-        <ul className="flex gap-12">
-          <li>
+        {/* Navigation Links */}
+        <nav className="hidden h-full items-center space-x-10 md:flex">
+          {navLinks.map((link) => (
             <NavLink
-              to="/"
+              key={link.name}
+              to={link.to}
               className={({ isActive }) =>
-                `font-bold text-xl ${isActive ? "text-[#1E429F]" : "text-gray-600"} hover:text-[#1E429F]`
+                `relative flex h-full items-center text-sm font-medium transition-colors focus-visible:outline-none ${isActive
+                  ? "text-[#006D77]"
+                  : "text-gray-400 hover:text-[#006D77]/70"
+                }`
               }
             >
-              Home
+              {({ isActive }) => (
+                <>
+                  {link.name}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 h-[3px] w-full rounded-t-full bg-[#006D77]" />
+                  )}
+                </>
+              )}
             </NavLink>
-          </li>
-          <li>
-            <NavLink
-              to="/favorites"
-              className={({ isActive }) =>
-                `font-bold text-xl ${isActive ? "text-[#1E429F]" : "text-gray-600"} hover:text-[#1E429F]`
-              }
-            >
-              Favorite
-            </NavLink>
-          </li>
-        </ul>
+          ))}
+        </nav>
 
-        <div className="flex gap-6 items-center">
-          <NavLink to="/search" className="text-gray-400 cursor-pointer">
-            <Search />
-          </NavLink>
-          <NavLink to="/filters" className="text-gray-400 cursor-pointer">
-            <SlidersHorizontal />
-          </NavLink>
-          <NavLink to="/profile" className="w-8 h-8 rounded-full bg-gray-200">
-            <div className="flex h-full w-full items-center justify-center">
-              <User className="w-5 h-5 text-gray-500" />
-            </div>
-          </NavLink>
+        {/* User Actions */}
+        <div className="flex items-center space-x-6">
+          <button
+            type="button"
+            aria-label="Notifications"
+            className="text-[#006D77] transition-transform hover:scale-105 active:scale-95 focus-visible:outline-none"
+          >
+            <Bell className="h-6 w-6" strokeWidth={1.5} />
+          </button>
+
+          <button
+            type="button"
+            aria-label="Favorites"
+            className="text-[#006D77] transition-transform hover:scale-105 active:scale-95 focus-visible:outline-none"
+          >
+            <Heart className="h-6 w-6" strokeWidth={1.5} />
+          </button>
+
+          <Avatar className="h-11 w-11 cursor-pointer ring-2 ring-transparent transition-all hover:ring-gray-100">
+            <AvatarImage
+              src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
+              alt="User Profile"
+              className="object-cover"
+            />
+            <AvatarFallback className="bg-[#006D77] text-white">JD</AvatarFallback>
+          </Avatar>
         </div>
       </div>
-
-      {/* Mobile Navbar */}
-      <div className="sm:hidden">
-        <div className="fixed bottom-0 left-0 right-0 bg-white shadow-[0_-4px_10px_rgba(0,0,0,0.1)] py-2 px-6 flex justify-around items-end z-50 rounded-t-[30px] pb-4">
-          {/* Home Link */}
-          <NavLink to="/" className={mobileLinkStyle}>
-            {({ isActive }) => (
-              <>
-                <div
-                  className={`${isActive ? "bg-text-secondary-blue p-3 rounded-full shadow-lg -mt-10 border-4 border-white text-white" : "text-gray-400"} transition-all`}
-                >
-                  <Home size={24} />
-                </div>
-                <span
-                  className={`text-xs font-medium ${isActive ? "text-text-secondary-blue" : "text-gray-400"}`}
-                >
-                  Home
-                </span>
-                <div className={`${isActive ? 'bg-text-secondary-blue p-3 rounded-full shadow-lg -mt-10 border-4 border-white text-white' : 'text-gray-400'} transition-all`}>
-                  <Home size={24} />
-                </div>
-                <span className={`text-xs font-medium ${isActive ? 'text-text-secondary-blue' : 'text-gray-400'}`}>Home</span>
-              </>
-            )}
-          </NavLink>
-
-          {/* Favorite Link */}
-          <NavLink to="/favorites" className={mobileLinkStyle}>
-            {({ isActive }) => (
-              <>
-                <div
-                  className={`${isActive ? "bg-text-secondary-blue p-3 rounded-full shadow-lg -mt-10 border-4 border-white text-white" : "text-gray-400"} transition-all`}
-                >
-                  <Heart size={24} />
-                </div>
-                <span
-                  className={`text-xs font-medium ${isActive ? "text-text-secondary-blue" : "text-gray-400"}`}
-                >
-                  Favorite
-                </span>
-                <div className={`${isActive ? 'bg-text-secondary-blue p-3 rounded-full shadow-lg -mt-10 border-4 border-white text-white' : 'text-gray-400'} transition-all`}>
-                  <Heart size={24} />
-                </div>
-                <span className={`text-xs font-medium ${isActive ? 'text-text-secondary-blue' : 'text-gray-400'}`}>Favorite</span>
-              </>
-            )}
-          </NavLink>
-        </div>
-      </div>
-    </>
+    </header>
   );
 };
 
