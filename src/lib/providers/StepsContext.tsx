@@ -65,4 +65,4 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   );
 }
 
-export const useBooking = () => useContext(BookingContext);
+export const useSteps = () => useContext(BookingContext);
