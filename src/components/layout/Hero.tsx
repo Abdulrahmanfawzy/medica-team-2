@@ -8,7 +8,7 @@ import { Search, MapPin } from "lucide-react"
 
 const Hero: React.FC = () => {
     return (
-        <section className="w-full flex justify-center mt-[91px]">
+        <section className="w-full flex justify-center">
             {/* Fixed 1440px container */}
             <div className="relative w-[1440px] h-[600px] max-w-full overflow-hidden">
 

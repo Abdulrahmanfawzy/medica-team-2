@@ -50,19 +50,19 @@ const specialties: Specialty[] = [
 
 const SpecialtySection: React.FC = () => {
     return (
-        <section className="w-full py-16 bg-[#F8F9FA]">
-            <div className="container mx-auto px-4">
-                {/* Section Heading */}
-                <h2 className="text-[#07595F] font-poppins font-semibold text-[40px] text-center mb-12">
+        <section className="w-[1440px] h-[247px] mx-auto mt-[24px] mb-[40px]  flex flex-col justify-center">
+            <div className="w-[1248px] mx-auto">
+                {/* Section Heading: Fixed Height 60px as requested */}
+                <h2 className="h-[60px] flex justify-center items-center font-['Poppins'] font-semibold text-[40px] text-[#07595F] mb-[24px]">
                     Browse by Specialty
                 </h2>
 
-                {/* Specialties Grid */}
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6 justify-items-center">
+                {/* Specialties Grid: Removed red bg, kept 24px gap and 96px padding */}
+                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-[24px]">
                     {specialties.map((specialty) => (
                         <Card
                             key={specialty.id}
-                            className="w-[180px] h-[180px] flex flex-col items-center justify-center border-none shadow-sm hover:shadow-md transition-shadow bg-white rounded-[16px] gap-4 cursor-pointer"
+                            className="w-[188px] h-[163px] flex flex-col items-center justify-center border-none shadow-sm hover:shadow-md transition-shadow bg-white rounded-[16px] gap-4 cursor-pointer"
                         >
                             {/* Icon Container */}
                             <div className="w-[64px] h-[64px] rounded-full bg-[#F1F5F9] flex items-center justify-center">
@@ -70,7 +70,7 @@ const SpecialtySection: React.FC = () => {
                             </div>
 
                             {/* Specialty Name */}
-                            <span className="text-[#4B5563] font-poppins font-medium text-lg text-center">
+                            <span className="text-[#4B5563] font-['Poppins'] font-medium text-[18px] text-center">
                                 {specialty.name}
                             </span>
                         </Card>
