@@ -9,6 +9,7 @@ import VerifyPage from "./pages/auth/verifyCode/VerifyPage";
 import VerifyAccount from "./pages/auth/verifyCode/VerifyAccount";
 import SuccessPage from "./pages/auth/successPass/SuccessPass";
 import Navbar from "./components/layout/Navbar";
+import FindDoctor from "./pages/FindDoctor";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -29,6 +30,7 @@ const App = () => {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/favorites" element={<Favorite />} />
+        <Route path="/find-doctor" element={<FindDoctor />} />
         {/* Auth routes */}
         <Route path="/login" element={<LoginPage />} />
         <Route path="/sign-up" element={<SignUpPage />} />
@@ -40,6 +42,7 @@ const App = () => {
         <Route path="/booking" element={<Booking />} />
       </Routes>
     </div>
+
   );
 };
 export default App;
