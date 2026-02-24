@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 import { Routes, Route, useLocation } from "react-router-dom";
 import Booking from "./pages/booking/Booking";
 import Favorite from "./pages/Favorite";
@@ -23,23 +23,6 @@ const App = () => {
     "/verify-otp",
     "success-password",
   ];
-=======
-
-import Home from "./pages/Home";
-import Navbar from "./components/layout/Navbar";
-import { Routes, Route } from "react-router-dom";
-
-const App = () => {
-  return (
-    <>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Home />} />
-      </Routes>
-    </>
-  );
-};
->>>>>>> 12e78ba6b6417a9cd9356b5c45f2f66724664611
 
   return (
     <div>
