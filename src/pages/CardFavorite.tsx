@@ -1,8 +1,7 @@
-import { MapPin, Star, Clock, Heart, MessageSquare } from "lucide-react";
+import { MapPin, Star, Clock, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 
 interface DoctorProps {
   name: string;

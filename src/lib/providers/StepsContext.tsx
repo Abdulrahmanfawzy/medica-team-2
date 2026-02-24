@@ -39,7 +39,26 @@ const initialSteps: Step[] = [
   },
 ];
 
-const BookingContext = createContext<any>(null);
+type StepsContextType = {
+  step: number;
+  steps: Step[];
+  changeStep: (newStep: number) => void;
+  currentStep: Step | undefined;
+  bookingData: {
+    visitType: string;
+    dateTime: string;
+    patientId: string;
+    paymentMethod: string;
+  };
+  setBookingData: React.Dispatch<React.SetStateAction<{
+    visitType: string;
+    dateTime: string;
+    patientId: string;
+    paymentMethod: string;
+  }>>;
+};
+
+const StepsContext = createContext<StepsContextType | null>(null);
 
 export function BookingProvider({ children }: { children: React.ReactNode }) {
   const [step, setStep] = useState(1);
@@ -64,7 +83,7 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
   const currentStep = steps.find((s) => s.number === step);
 
   return (
-    <BookingContext.Provider
+    <StepsContext.Provider
       value={{
         step,
         steps,
@@ -75,8 +94,14 @@ export function BookingProvider({ children }: { children: React.ReactNode }) {
       }}
     >
       {children}
-    </BookingContext.Provider>
+    </StepsContext.Provider>
   );
 }
 
-export const useBooking = () => useContext(BookingContext);
+export const useSteps = () => {
+  const context = useContext(StepsContext);
+  if (!context) {
+    throw new Error("useSteps must be used within a StepsProvider");
+  }
+  return context;
+};

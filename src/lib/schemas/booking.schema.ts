@@ -9,14 +9,14 @@ export const stepA = z.object({
 
 // Step B: Date & Time
 export const stepB = z.object({
-  date: z.string({ message: "Please select a date" }),
+  date: z.string().min(1, "Please select a date"),
   time: z.string().min(1, "Please select a time"),
 });
 
 // Step C: Others && Myself
 export const othersPhase1 = z.object({
   fullName: z.string().min(1, "Full name required"),
-  gender: z.enum(["male", "female"], { message: "Select gender" }),
+  gender: z.string().min(1, "Select gender"),
   dateOfBirth: z.string().min(1, "Select DOB"),
   reasonForVisit: z.string().min(1, "Reason required"),
 });

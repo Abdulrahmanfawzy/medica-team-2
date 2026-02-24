@@ -1,6 +1,5 @@
-// pages
+import { Routes, Route, useLocation } from "react-router-dom";
 import Booking from "./pages/booking/Booking";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import Favorite from "./pages/Favorite";
 import Home from "./pages/Home";
 import LoginPage from "./pages/auth/loginPage/LoginPage";
@@ -10,6 +9,7 @@ import VerifyPage from "./pages/auth/verifyCode/VerifyPage";
 import VerifyAccount from "./pages/auth/verifyCode/VerifyAccount";
 import SuccessPage from "./pages/auth/successPass/SuccessPass";
 import Navbar from "./components/layout/Navbar";
+import FindDoctor from "./pages/FindDoctor";
 
 const App = () => {
   const { pathname } = useLocation();
@@ -24,22 +24,25 @@ const App = () => {
   ];
 
   return (
-    <div className="px-24">
+    <div>
       {!authRoutes.includes(pathname) && <Navbar />}
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/favorites" element={<Favorite />} />
-          {/* Auth routes */}
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/sign-up" element={<SignUpPage />} />
-          <Route path="/forget-password" element={<ForgetPasswordPage />} />
-          <Route path="/verify-account" element={<VerifyAccount />} />
-          <Route path="/verify-otp" element={<VerifyPage />} />
-          <Route path="/success-password" element={<SuccessPage />} />
-          {/* booking routes */}
-          <Route path="/booking" element={<Booking />} />
-        </Routes>
+
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/favorites" element={<Favorite />} />
+        <Route path="/find-doctor" element={<FindDoctor />} />
+        {/* Auth routes */}
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/sign-up" element={<SignUpPage />} />
+        <Route path="/forget-password" element={<ForgetPasswordPage />} />
+        <Route path="/verify-account" element={<VerifyAccount />} />
+        <Route path="/verify-otp" element={<VerifyPage />} />
+        <Route path="/success-password" element={<SuccessPage />} />
+        {/* booking routes */}
+        <Route path="/booking" element={<Booking />} />
+      </Routes>
     </div>
+
   );
 };
 export default App;
