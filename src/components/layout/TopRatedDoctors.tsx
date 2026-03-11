@@ -61,15 +61,15 @@ const RatingStars: React.FC<{ rating: number }> = ({ rating }) => {
 
 const TopRatedDoctors: React.FC = () => {
     return (
-        <section className="bg-[#F8F9FA] py-16 px-4">
+        <section className="bg-[#F2F2F2] w-[1440px] h-[608px] mx-auto py-[40px] px-4">
             <div className="max-w-[1248px] mx-auto">
-                <h2 className="text-[#042D2F] font-poppins font-bold text-3xl mb-10 text-left">
+                <h2 className="text-[#042D2F] font-poppins font-bold text-3xl mb-[24px] text-left">
                     Top-Rated Doctors
                 </h2>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-[24px]">
                     {TOP_DOCTORS.map((doctor) => (
-                        <Card key={doctor.id} className="overflow-hidden border border-gray-200 rounded-xl shadow-none bg-white">
+                        <Card key={doctor.id} className=" w-[400px] h-[372px] overflow-hidden border border-gray-200 rounded-xl shadow-none bg-white">
                             <CardHeader className="p-4">
                                 <div className="w-full h-48 rounded-lg overflow-hidden bg-gray-100">
                                     <img
@@ -111,8 +111,8 @@ const TopRatedDoctors: React.FC = () => {
 
                 <div className="flex justify-center">
                     {/* تم استخدام المكون Button المستورد هنا أيضاً مع خاصية الـ outline */}
-                    <Button variant="outline" className="px-10 h-[56px] border-[#097178] text-[#07595F] font-bold rounded-lg hover:bg-gray-50 transition-colors text-sm">
-                        View All Doctors
+                    <Button className="w-[290px] h-[48px] bg-white border border-[#097178] text-[#097178] font-['Poppins'] font-semibold text-[18px] rounded-lg transition-colors hover:bg-[#097178]/10">
+                        Book Appointment
                     </Button>
                 </div>
             </div>
